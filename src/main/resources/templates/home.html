@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <style>
+        .layui-tab-title .layui-this { background-color:#009688; color: #eee;}
+        .first-tab i.layui-tab-close{
+            display:none!important;
+        }
+    </style>
+</head>
+
+
+<body class="layui-layout-body">
+
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">迎学后台管理系统</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item"><a id="deptName" href="javascript:;"></a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" style="margin-right: 15px">
+                        <i class="layui-icon layui-icon-username" style="font-size: 30px; color: #1E9FFF;"></i>
+                        <span id="nickName" ></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-id="userProper" data-title="编辑基本资料" data-url="/index/users/info" class="menuNvaBar">编辑基本资料</a></dd>
+                        <dd><a href="javascript:;" data-id="userSafe" data-title="安全设置" data-url="/index/users/pwd" class="menuNvaBar">更换密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;" id="logout">退出</a></li>
+            </ul>
+        </div>
+        <!-- 左侧菜单-->
+        <div id="mainmenu" class="layui-side layui-bg-black" >
+            <div class="layui-side-scroll">
+                <div class="navBar layui-side-scroll" id="navBarId"></div>
+            </div>
+        </div>
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab" lay-filter="tab" lay-allowclose="true">
+                <ul class="layui-tab-title">
+                    <li class="first-tab layui-this">主页</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show"  >
+                        <iframe th:src="@{/index/main}" frameborder="0" name="content" width="100%" id="home"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<script src="/layui/layui.js"></script>
+<script src="/js/core.util.js"></script>
+<script>
+    layui.use(['jquery','element','layer'],function () {
+        var layer = layui.layer;
+        var $ =layui.jquery;
+        var element = layui.element;
+        frameWH();
+
+        /*设置主体内容层高度*/
+        function frameWH() {
+            var h = $(window).height() - 41 - 10 - 35 - 10 - 44 - 10;
+            $("iframe").css("height", h + "px");
+        };
+    });
+</script>
+</html>
