@@ -80,6 +80,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.douzhenbo.entity.SysRole">
     update sys_role
     <set>
@@ -104,6 +105,8 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.douzhenbo.entity.SysRole">
     update sys_role
     set `name` = #{name,jdbcType=VARCHAR},
@@ -117,7 +120,7 @@
 
 
   <!-- @Description:     通过id集合获取名称集合-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <select id="selectNamesByIds" resultType="java.lang.String">
     select name
     from sys_role
@@ -129,4 +132,26 @@
   </select>
 
 
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.douzhenbo.common.vo.req.RolePageReqVO">
+    select <include refid="Base_Column_List"></include>
+    from sys_role
+    <where>
+      deleted=1
+      <if test="roleName !=null and roleName != ''">
+        and name like  concat('%',#{roleName},'%')
+      </if>
+      <if test="roleId !=null and roleId !=''">
+        and id=#{roleId}
+      </if>
+      <if test="status !=null and status !='' or status==0">
+        and status=#{status}
+      </if>
+      <if test="startTime !=null and startTime !=''">
+        and create_time &gt;= #{startTime}
+      </if>
+      <if test="endTime !=null and endTime !=''">
+        and create_time &lt;= #{endTime}
+      </if>
+    </where>
+  </select>
 </mapper>

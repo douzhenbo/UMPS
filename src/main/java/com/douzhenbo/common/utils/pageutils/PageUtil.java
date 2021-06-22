@@ -21,7 +21,7 @@ public class PageUtil {
             long total=page.getTotal();
             int i=(int)total;
             pageVO.setTotalAccount(i);
-            pageVO.setLists(page.getResult());
+            pageVO.setList(page.getResult());
             pageVO.setTotalPages(page.getPages());
             pageVO.setCurPageSize(page.size());
             pageVO.setPageNum(page.getPageNum());

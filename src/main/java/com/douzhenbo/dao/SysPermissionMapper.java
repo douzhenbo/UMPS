@@ -2,6 +2,8 @@ package com.douzhenbo.dao;
 
 import com.douzhenbo.entity.SysPermission;
 
+import java.util.List;
+
 public interface SysPermissionMapper {
     int deleteByPrimaryKey(String id);
 
@@ -14,4 +16,11 @@ public interface SysPermissionMapper {
     int updateByPrimaryKeySelective(SysPermission record);
 
     int updateByPrimaryKey(SysPermission record);
+
+
+    /**
+     * 查询所有的菜单权限
+     * @return
+     */
+    List<SysPermission>selectAll();
 }

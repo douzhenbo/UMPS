@@ -17,7 +17,7 @@ public class PageVO<T>{
     private Integer totalAccount;
 
     @ApiModelProperty(value = "分页数据集合")
-    private List<T>lists;
+    private List<T>list;
 
     /**
      * 总页数
