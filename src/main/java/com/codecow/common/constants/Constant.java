@@ -43,6 +43,10 @@ public class Constant {
     public static final String DELETED_USER_KEY="deleted-user-key_";
 
     /**
+     * 部门编码key
+     */
+    public static final String DEPT_CODE_KEY="dept-code-key_";
+    /**
      * 用户权鉴缓存 key
      */
     public static final String IDENTIFY_CACHE_KEY="shiro-cache:com.yingxue.lesson.shiro.CustomRealm.authorizationCache:";

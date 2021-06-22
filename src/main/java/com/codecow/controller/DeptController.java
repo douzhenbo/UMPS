@@ -1,15 +1,16 @@
 package com.codecow.controller;
 
 import com.codecow.common.utils.DataResult;
+import com.codecow.common.vo.req.DeptAddReqVO;
+import com.codecow.common.vo.resp.DeptRespNodeVO;
 import com.codecow.entity.SysDept;
 import com.codecow.service.IDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,6 +32,20 @@ public class DeptController {
         DataResult dataResult=DataResult.success();
         dataResult.setData(deptService.selectAll());
         return dataResult;
+    }
+
+    @ApiOperation(value = "获取部门树-添加部门时使用")
+    @GetMapping("/getDeptTree")
+    public DataResult<List<DeptRespNodeVO>>getDeptTree(){
+        DataResult result=DataResult.success();
+        result.setData(deptService.getDeptTreeList());
+        return result;
+    }
+
+    @ApiOperation(value = "新增部门")
+    @PostMapping("/addDept")
+    public DataResult addDept(@RequestBody @Valid DeptAddReqVO vo){
+        return DataResult.success(deptService.addDept(vo));
     }
 
 }

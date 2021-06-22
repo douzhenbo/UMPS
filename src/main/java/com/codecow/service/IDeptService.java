@@ -1,5 +1,7 @@
 package com.codecow.service;
 
+import com.codecow.common.vo.req.DeptAddReqVO;
+import com.codecow.common.vo.resp.DeptRespNodeVO;
 import com.codecow.entity.SysDept;
 
 import java.util.List;
@@ -15,4 +17,11 @@ public interface IDeptService {
      * @return
      */
     List<SysDept>selectAll();
+
+    /**
+     * 获取部门树（用于添加新部门）
+     */
+    List<DeptRespNodeVO> getDeptTreeList();
+
+    SysDept addDept(DeptAddReqVO vo);
 }
