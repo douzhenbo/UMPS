@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.douzhenbo.dao.SysRoleMapper">
-  <resultMap id="BaseResultMap" type="com.douzhenbo.entity.SysRole">
+<mapper namespace="com.codecow.dao.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.codecow.entity.SysRole">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -23,7 +23,7 @@
     delete from sys_role
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.douzhenbo.entity.SysRole">
+  <insert id="insert" parameterType="com.codecow.entity.SysRole">
     insert into sys_role (id, `name`, description,
       `status`, create_time, update_time,
       deleted)
@@ -31,7 +31,7 @@
       #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{deleted,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.douzhenbo.entity.SysRole">
+  <insert id="insertSelective" parameterType="com.codecow.entity.SysRole">
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -81,7 +81,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.douzhenbo.entity.SysRole">
+  <update id="updateByPrimaryKeySelective" parameterType="com.codecow.entity.SysRole">
     update sys_role
     <set>
       <if test="name != null">
@@ -107,7 +107,7 @@
   </update>
 
 
-  <update id="updateByPrimaryKey" parameterType="com.douzhenbo.entity.SysRole">
+  <update id="updateByPrimaryKey" parameterType="com.codecow.entity.SysRole">
     update sys_role
     set `name` = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
@@ -132,7 +132,7 @@
   </select>
 
 
-  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.douzhenbo.common.vo.req.RolePageReqVO">
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.codecow.common.vo.req.RolePageReqVO">
     select <include refid="Base_Column_List"></include>
     from sys_role
     <where>

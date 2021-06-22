@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.douzhenbo.dao.SysLogMapper">
-  <resultMap id="BaseResultMap" type="com.douzhenbo.entity.SysLog">
+<mapper namespace="com.codecow.dao.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.codecow.entity.SysLog">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -25,7 +25,7 @@
     delete from sys_log
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.douzhenbo.entity.SysLog">
+  <insert id="insert" parameterType="com.codecow.entity.SysLog">
     insert into sys_log (id, user_id, username,
       `operation`, `time`, `method`,
       params, ip, create_time
@@ -35,7 +35,7 @@
       #{params,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.douzhenbo.entity.SysLog">
+  <insert id="insertSelective" parameterType="com.codecow.entity.SysLog">
     insert into sys_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.douzhenbo.entity.SysLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.codecow.entity.SysLog">
     update sys_log
     <set>
       <if test="userId != null">
@@ -126,7 +126,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.douzhenbo.entity.SysLog">
+  <update id="updateByPrimaryKey" parameterType="com.codecow.entity.SysLog">
     update sys_log
     set user_id = #{userId,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},

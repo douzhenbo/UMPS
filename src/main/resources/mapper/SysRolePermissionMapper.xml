@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.douzhenbo.dao.SysRolePermissionMapper">
-  <resultMap id="BaseResultMap" type="com.douzhenbo.entity.SysRolePermission">
+<mapper namespace="com.codecow.dao.SysRolePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.codecow.entity.SysRolePermission">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="permission_id" jdbcType="VARCHAR" property="permissionId" />
@@ -20,13 +20,13 @@
     delete from sys_role_permission
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.douzhenbo.entity.SysRolePermission">
+  <insert id="insert" parameterType="com.codecow.entity.SysRolePermission">
     insert into sys_role_permission (id, role_id, permission_id,
       create_time)
     values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR},
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.douzhenbo.entity.SysRolePermission">
+  <insert id="insertSelective" parameterType="com.codecow.entity.SysRolePermission">
     insert into sys_role_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.douzhenbo.entity.SysRolePermission">
+  <update id="updateByPrimaryKeySelective" parameterType="com.codecow.entity.SysRolePermission">
     update sys_role_permission
     <set>
       <if test="roleId != null">
@@ -72,7 +72,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.douzhenbo.entity.SysRolePermission">
+  <update id="updateByPrimaryKey" parameterType="com.codecow.entity.SysRolePermission">
     update sys_role_permission
     set role_id = #{roleId,jdbcType=VARCHAR},
       permission_id = #{permissionId,jdbcType=VARCHAR},
@@ -82,7 +82,7 @@
 
   <!-- @Description:     批量插入角色和菜单权限关联数据-->
   <!-- @Author:          小霍-->
-  <insert id="batchInsertRolePermission" parameterType="com.douzhenbo.entity.SysRolePermission">
+  <insert id="batchInsertRolePermission" parameterType="com.codecow.entity.SysRolePermission">
     insert into sys_role_permission(
     id,
     role_id,

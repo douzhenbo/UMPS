@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.douzhenbo.dao.SysDeptMapper">
-  <resultMap id="BaseResultMap" type="com.douzhenbo.entity.SysDept">
+<mapper namespace="com.codecow.dao.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="com.codecow.entity.SysDept">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="dept_no" jdbcType="VARCHAR" property="deptNo" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -29,7 +29,7 @@
     delete from sys_dept
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.douzhenbo.entity.SysDept">
+  <insert id="insert" parameterType="com.codecow.entity.SysDept">
     insert into sys_dept (id, dept_no, `name`,
       pid, `status`, relation_code,
       dept_manager_id, manager_name, phone,
@@ -41,7 +41,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.douzhenbo.entity.SysDept">
+  <insert id="insertSelective" parameterType="com.codecow.entity.SysDept">
     insert into sys_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.douzhenbo.entity.SysDept">
+  <update id="updateByPrimaryKeySelective" parameterType="com.codecow.entity.SysDept">
     update sys_dept
     <set>
       <if test="deptNo != null">
@@ -159,7 +159,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.douzhenbo.entity.SysDept">
+  <update id="updateByPrimaryKey" parameterType="com.codecow.entity.SysDept">
     update sys_dept
     set dept_no = #{deptNo,jdbcType=VARCHAR},
       `name` = #{name,jdbcType=VARCHAR},
