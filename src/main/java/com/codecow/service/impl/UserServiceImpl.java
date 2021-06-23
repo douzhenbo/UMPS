@@ -11,7 +11,9 @@ import com.codecow.common.vo.req.LoginReqVO;
 import com.codecow.common.vo.req.UserPageVO;
 import com.codecow.common.vo.resp.LoginRespVO;
 import com.codecow.common.vo.resp.PageVO;
+import com.codecow.dao.SysDeptMapper;
 import com.codecow.dao.SysUserMapper;
+import com.codecow.entity.SysDept;
 import com.codecow.entity.SysUser;
 import com.codecow.service.IUserService;
 import com.github.pagehelper.PageHelper;
@@ -34,6 +36,9 @@ import java.util.*;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysDeptMapper sysDeptMapper;
 
     @Override
     public LoginRespVO login(LoginReqVO vo) {
@@ -104,6 +109,12 @@ public class UserServiceImpl implements IUserService {
     public PageVO<SysUser> pageInfo(UserPageVO vo) {
         PageHelper.startPage(vo.getPageNum(),vo.getPageSize());
         List<SysUser>sysUsers=sysUserMapper.selectAll();
+        for(SysUser s:sysUsers){
+            SysDept dept=sysDeptMapper.selectByPrimaryKey(s.getDeptId());
+            if(dept!=null){
+                s.setDeptName(dept.getName());
+            }
+        }
         return PageUtil.getPageVo(sysUsers);
     }
 
