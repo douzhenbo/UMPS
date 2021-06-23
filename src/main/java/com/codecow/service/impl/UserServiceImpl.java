@@ -4,25 +4,37 @@ import com.codecow.common.constants.Constant;
 import com.codecow.common.exceptions.BusinessException;
 import com.codecow.common.exceptions.code.BaseResponseCode;
 import com.codecow.common.utils.jwtutils.JwtTokenUtil;
+import com.codecow.common.utils.jwtutils.TokenSetting;
 import com.codecow.common.utils.pageutils.PageUtil;
 import com.codecow.common.utils.passwordutils.PasswordUtils;
 import com.codecow.common.vo.req.AddUserReqVO;
 import com.codecow.common.vo.req.LoginReqVO;
-import com.codecow.common.vo.req.UserPageVO;
+import com.codecow.common.vo.req.UserOwnRoleReqVO;
+import com.codecow.common.vo.req.UserPageReqVO;
 import com.codecow.common.vo.resp.LoginRespVO;
 import com.codecow.common.vo.resp.PageVO;
+import com.codecow.common.vo.resp.UserOwnRoleRespVO;
+import com.codecow.dao.SysDeptMapper;
+import com.codecow.dao.SysRoleMapper;
 import com.codecow.dao.SysUserMapper;
+import com.codecow.dao.SysUserRoleMapper;
+import com.codecow.entity.SysDept;
+import com.codecow.entity.SysRole;
 import com.codecow.entity.SysUser;
+import com.codecow.entity.SysUserRole;
+import com.codecow.service.IRoleService;
+import com.codecow.service.IUserRoleService;
 import com.codecow.service.IUserService;
+import com.codecow.service.RedisService;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author codecow
@@ -34,6 +46,21 @@ import java.util.*;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysDeptMapper sysDeptMapper;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Autowired
+    private IRoleService roleService;
+
+    @Autowired
+    private TokenSetting tokenSetting;
+
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public LoginRespVO login(LoginReqVO vo) {
@@ -101,9 +128,15 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public PageVO<SysUser> pageInfo(UserPageVO vo) {
+    public PageVO<SysUser> pageInfo(UserPageReqVO vo) {
         PageHelper.startPage(vo.getPageNum(),vo.getPageSize());
-        List<SysUser>sysUsers=sysUserMapper.selectAll();
+        List<SysUser>sysUsers=sysUserMapper.selectAll(vo);
+        for(SysUser s:sysUsers){
+            SysDept dept=sysDeptMapper.selectByPrimaryKey(s.getDeptId());
+            if(dept!=null){
+                s.setDeptName(dept.getName());
+            }
+        }
         return PageUtil.getPageVo(sysUsers);
     }
 
@@ -124,5 +157,18 @@ public class UserServiceImpl implements IUserService {
         return null;
     }
 
+    @Override
+    public UserOwnRoleRespVO getUserOwnRole(String userId) {
+        UserOwnRoleRespVO userOwnRoleRespVO=new UserOwnRoleRespVO();
+        userOwnRoleRespVO.setAllRole(roleService.selectAll());
+        userOwnRoleRespVO.setRoleIds(userRoleService.getRoleIdsByUserId(userId));
+        return userOwnRoleRespVO;
+    }
 
+    @Override
+    public void setUserOwnRole(UserOwnRoleReqVO vo) {
+        userRoleService.giveUserRoles(vo);
+        redisService.set(Constant.JWT_REFRESH_KEY+vo.getUserId(),vo.getUserId(),
+                tokenSetting.getAccessTokenExpireTime().toMillis(), TimeUnit.MILLISECONDS);
+    }
 }

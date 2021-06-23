@@ -43,6 +43,11 @@ public class RoleServiceImpl implements IRoleService {
 
 
     @Override
+    public List<SysRole> selectAll() {
+        return sysRoleMapper.selectAll(new RolePageReqVO());
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public SysRole addRole(AddRoleReqVO vo) {
 
@@ -69,4 +74,6 @@ public class RoleServiceImpl implements IRoleService {
 
         return null;
     }
+
+
 }

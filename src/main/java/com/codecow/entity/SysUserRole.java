@@ -3,12 +3,17 @@ package com.codecow.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 public class SysUserRole implements Serializable {
-    private Long roleId;
+    private String roleId;
 
-    private Long userId;
+    private String userId;
+
+    private String id;
+
+    private Date createTime;
 
 
 }

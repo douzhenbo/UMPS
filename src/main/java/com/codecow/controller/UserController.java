@@ -3,9 +3,11 @@ package com.codecow.controller;
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.vo.req.AddUserReqVO;
 import com.codecow.common.vo.req.LoginReqVO;
-import com.codecow.common.vo.req.UserPageVO;
+import com.codecow.common.vo.req.UserOwnRoleReqVO;
+import com.codecow.common.vo.req.UserPageReqVO;
 import com.codecow.common.vo.resp.LoginRespVO;
 import com.codecow.common.vo.resp.PageVO;
+import com.codecow.common.vo.resp.UserOwnRoleRespVO;
 import com.codecow.entity.SysUser;
 import com.codecow.service.IUserService;
 import io.swagger.annotations.Api;
@@ -24,7 +26,6 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/user")
 @Api(tags = "组织模块-用户管理")
 public class UserController {
     @Autowired
@@ -40,18 +41,34 @@ public class UserController {
     }
 
 
-    @PostMapping("/getUserList")
+    @PostMapping("/user/getUserList")
     @ApiOperation(value = "获取用户列表")
     @RequiresPermissions("sys:user:list")
-    public DataResult getUserList(@RequestBody UserPageVO vo){
+    public DataResult getUserList(@RequestBody UserPageReqVO vo){
         PageVO<SysUser> sysUserPageInfo=userService.pageInfo(vo);
         return DataResult.success(sysUserPageInfo);
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/user/addUser")
     @ApiOperation(value = "添加用户接口")
     public DataResult addUser(@RequestBody @Valid AddUserReqVO vo){
         userService.addUser(vo);
         return DataResult.success();
+    }
+
+    @GetMapping("/user/getUserRoles/{userId}")
+    @ApiOperation(value = "获取用户所拥有的角色和所有角色")
+    public DataResult<UserOwnRoleRespVO>getUserRoles(@PathVariable("userId") String userId){
+        DataResult result=DataResult.success();
+        result.setData(userService.getUserOwnRole(userId));
+        return result;
+    }
+
+
+    @PutMapping("/user/giveRoles")
+    @ApiOperation(value = "赋予用户角色")
+    public DataResult giveRoles(@RequestBody @Valid UserOwnRoleReqVO vo){
+       userService.setUserOwnRole(vo);
+       return DataResult.success();
     }
 }

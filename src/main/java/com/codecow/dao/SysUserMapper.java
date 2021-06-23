@@ -1,5 +1,6 @@
 package com.codecow.dao;
 
+import com.codecow.common.vo.req.UserPageReqVO;
 import com.codecow.entity.SysUser;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface SysUserMapper {
 
     SysUser getUserByName(String username);
 
-    List<SysUser> selectAll();
+    List<SysUser> selectAll(UserPageReqVO vo);
 }
 
