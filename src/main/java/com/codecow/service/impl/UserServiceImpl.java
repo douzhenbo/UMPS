@@ -6,6 +6,7 @@ import com.codecow.common.exceptions.code.BaseResponseCode;
 import com.codecow.common.utils.jwtutils.JwtTokenUtil;
 import com.codecow.common.utils.pageutils.PageUtil;
 import com.codecow.common.utils.passwordutils.PasswordUtils;
+import com.codecow.common.vo.req.AddUserReqVO;
 import com.codecow.common.vo.req.LoginReqVO;
 import com.codecow.common.vo.req.UserPageVO;
 import com.codecow.common.vo.resp.LoginRespVO;
@@ -15,13 +16,13 @@ import com.codecow.entity.SysUser;
 import com.codecow.service.IUserService;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author codecow
@@ -67,7 +68,7 @@ public class UserServiceImpl implements IUserService {
     }
     /**
      * 用过用户id查询拥有的角色信息
-     * @Author:      小霍
+     * @Author:      codecow
      * @UpdateUser:
      * @Version:     0.0.1
      * @param userId
@@ -105,4 +106,23 @@ public class UserServiceImpl implements IUserService {
         List<SysUser>sysUsers=sysUserMapper.selectAll();
         return PageUtil.getPageVo(sysUsers);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public SysUser addUser(AddUserReqVO vo) {
+        SysUser sysUser=new SysUser();
+        BeanUtils.copyProperties(vo,sysUser);
+        sysUser.setCreateTime(new Date());
+        sysUser.setSalt(PasswordUtils.getSalt());
+        String encode=PasswordUtils.encode(sysUser.getPassword(),sysUser.getSalt());
+        sysUser.setPassword(encode);
+        sysUser.setId(UUID.randomUUID().toString());
+        int insert=sysUserMapper.insertSelective(sysUser);
+        if(insert!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+        return null;
+    }
+
+
 }

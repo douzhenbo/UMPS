@@ -34,7 +34,7 @@ public class DeptController {
         return dataResult;
     }
 
-    @ApiOperation(value = "获取部门树-添加部门时使用")
+    @ApiOperation(value = "获取部门树-添加部门时使用-添加用户时使用")
     @GetMapping("/getDeptTree")
     public DataResult<List<DeptRespNodeVO>>getDeptTree(){
         DataResult result=DataResult.success();

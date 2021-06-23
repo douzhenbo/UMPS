@@ -1,6 +1,7 @@
 package com.codecow.controller;
 
 import com.codecow.common.utils.DataResult;
+import com.codecow.common.vo.req.AddUserReqVO;
 import com.codecow.common.vo.req.LoginReqVO;
 import com.codecow.common.vo.req.UserPageVO;
 import com.codecow.common.vo.resp.LoginRespVO;
@@ -13,6 +14,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author codecow
  * @version 1.0  UPMS
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/user")
 @Api(tags = "组织模块-用户管理")
 public class UserController {
     @Autowired
@@ -36,7 +40,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/user/getUserList")
+    @PostMapping("/getUserList")
     @ApiOperation(value = "获取用户列表")
     @RequiresPermissions("sys:user:list")
     public DataResult getUserList(@RequestBody UserPageVO vo){
@@ -44,4 +48,10 @@ public class UserController {
         return DataResult.success(sysUserPageInfo);
     }
 
+    @PostMapping("/addUser")
+    @ApiOperation(value = "添加用户接口")
+    public DataResult addUser(@RequestBody @Valid AddUserReqVO vo){
+        userService.addUser(vo);
+        return DataResult.success();
+    }
 }
