@@ -1,6 +1,7 @@
 package com.codecow.service;
 
 import com.codecow.common.vo.req.PermissionAddReqVO;
+import com.codecow.common.vo.req.PermissionUpdateReqVO;
 import com.codecow.common.vo.resp.PermissionRespNodeVO;
 import com.codecow.entity.SysPermission;
 
@@ -45,5 +46,10 @@ public interface IPermissionService {
      * @return
      */
     List<PermissionRespNodeVO>selectAllTree();
+
+    /**
+     * @author codecow
+     */
+    void updatePermission(PermissionUpdateReqVO vo);
 
 }

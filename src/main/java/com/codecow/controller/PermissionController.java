@@ -2,6 +2,7 @@ package com.codecow.controller;
 
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.vo.req.PermissionAddReqVO;
+import com.codecow.common.vo.req.PermissionUpdateReqVO;
 import com.codecow.common.vo.resp.PermissionRespNodeVO;
 import com.codecow.entity.SysPermission;
 import com.codecow.service.IPermissionService;
@@ -57,6 +58,14 @@ public class PermissionController {
     public DataResult<List<PermissionRespNodeVO>> getAllMenuTree(){
         DataResult dataResult=DataResult.success();
         dataResult.setData(permissionService.selectAllTree());
+        return dataResult;
+    }
+
+    @ApiOperation(value = "编辑菜单接口")
+    @PutMapping("/updateMenu")
+    public DataResult updateMenu(@RequestBody@Valid PermissionUpdateReqVO vo){
+        permissionService.updatePermission(vo);
+        DataResult dataResult=DataResult.success();
         return dataResult;
     }
 

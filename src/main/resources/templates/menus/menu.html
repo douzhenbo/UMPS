@@ -92,6 +92,13 @@
     </div>
 </script>
 
+
+<script type="text/html" id="tool">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
 <script src="/layui/layui.js"></script>
 <script src="/js/core.util.js"></script>
 <script>
@@ -318,73 +325,88 @@
                     $(".menu-table").show();
                     //显示编辑窗口
                     $(".operation_menu").hide();
-                },"POST",false);
+                },"POST",false,function (res) {
+                    //无新增菜单权限数据提示
+                    layer.msg("抱歉！您暂无新增菜单权限的权限");
+                });
+            }else {
+                CoreUtil.sendAjax("/menu/updateMenu",JSON.stringify(data.field),function (res) {
+                    reloadTreeTable();
+                    //显示表格
+                    $(".menu-table").show();
+                    //隐藏编辑窗口
+                    $(".operation_menu").hide();
+                },"PUT",false,function (res) {
+                    //无更新菜单权限数据提示
+                    layer.msg("抱歉！您暂无编辑菜单权限的权限");
+                });
             }
             return false;
         });
 
-        //
-        // //操作项事件
-        // table.on('tool(menuTable)',function (obj) {
-        //     var data = obj.data;
-        //     switch (obj.event) {
-        //         case 'edit':
-        //             selectNode=null;
-        //             //隐藏表格
-        //             $(".menu-table").hide();
-        //             //显示编辑窗口
-        //             $(".operation_menu").show();
-        //             $(".title").html("编辑菜单权限");
-        //             initRadio(data.type);
-        //             $(".operation_menu input[name=id]").val(data.id);
-        //             $(".operation_menu input[name=pid]").val(data.pid);
-        //             $(".operation_menu input[name=name]").val(data.name);
-        //             $(".operation_menu input[name=pidName]").val(data.pidName);
-        //             $(".operation_menu input[name=url]").val(data.url);
-        //             $(".operation_menu input[name=perms]").val(data.perms);
-        //             $(".operation_menu input[name=orderNum]").val(data.orderNum);
-        //             $(".operation_menu input[name=method]").val(data.method);
-        //             $(".operation_menu input[name=code]").val(data.code);
-        //             if(data.status ==1){
-        //                 $(".operation_menu input[name=status]").attr('checked', 'checked');
-        //                 $(".operation_menu input[name=status]").attr('type', 'hidden').val(1);
-        //                 var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-        //                 x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
-        //                 var d = document.getElementsByTagName('em')[0];
-        //                 d.firstChild.nodeValue = '启用';
-        //             }else {
-        //                 $(".operation_menu input[name=status]").attr('type', 'hidden').removeAttr("checked").val(0);
-        //                 var x = document.getElementsByClassName("layui-unselect layui-form-switch");
-        //                 x[0].setAttribute("class", "layui-unselect layui-form-switch");
-        //                 var d = document.getElementsByTagName('em')[0];
-        //                 d.firstChild.nodeValue = '禁用';
-        //             }
-        //             form.render(); //更新全部
-        //             initTree();
-        //             break;
-        //         case 'del':
-        //             // layer.msg("您点击了"+data.name+"删除按钮");
-        //             deletedMenu(data.id,data.name)
-        //             break;
-        //     }
-        // });
-        //
-        // //删除操作
-        // var deletedMenu=function(menuId,menuName){
-        //     layer.open({
-        //         content: '确定要删除'+menuName+"?",
-        //         yes: function(index, layero){
-        //             layer.close(index); //如果设定了yes回调，需进行手工关闭
-        //             CoreUtil.sendAjax("/api/permission/"+menuId,null,function (res) {
-        //                 layer.msg(res.msg);
-        //                 reloadTreeTable();
-        //             },"DELETE",false,function (res) {
-        //                 //无权限删除菜单权限提示
-        //                 layer.msg("抱歉！您暂无删除菜单权限的权限");
-        //             });
-        //         }
-        //     });
-        // };
+
+
+        //操作项事件
+        table.on('tool(menuTable)',function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'edit':
+                    selectNode=null;
+                    //隐藏表格
+                    $(".menu-table").hide();
+                    //显示编辑窗口
+                    $(".operation_menu").show();
+                    $(".title").html("编辑菜单权限");
+                    initRadio(data.type);
+                    $(".operation_menu input[name=id]").val(data.id);
+                    $(".operation_menu input[name=pid]").val(data.pid);
+                    $(".operation_menu input[name=name]").val(data.name);
+                    $(".operation_menu input[name=pidName]").val(data.pidName);
+                    $(".operation_menu input[name=url]").val(data.url);
+                    $(".operation_menu input[name=perms]").val(data.perms);
+                    $(".operation_menu input[name=orderNum]").val(data.orderNum);
+                    $(".operation_menu input[name=method]").val(data.method);
+                    $(".operation_menu input[name=code]").val(data.code);
+                    if(data.status ==1){
+                        $(".operation_menu input[name=status]").attr('checked', 'checked');
+                        $(".operation_menu input[name=status]").attr('type', 'hidden').val(1);
+                        var x = document.getElementsByClassName("layui-unselect layui-form-switch");
+                        x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
+                        var d = document.getElementsByTagName('em')[0];
+                        d.firstChild.nodeValue = '启用';
+                    }else {
+                        $(".operation_menu input[name=status]").attr('type', 'hidden').removeAttr("checked").val(0);
+                        var x = document.getElementsByClassName("layui-unselect layui-form-switch");
+                        x[0].setAttribute("class", "layui-unselect layui-form-switch");
+                        var d = document.getElementsByTagName('em')[0];
+                        d.firstChild.nodeValue = '禁用';
+                    }
+                    form.render(); //更新全部
+                    initTree();
+                    break;
+                case 'del':
+                    // layer.msg("您点击了"+data.name+"删除按钮");
+                    deletedMenu(data.id,data.name)
+                    break;
+            }
+        });
+
+        //删除操作
+        var deletedMenu=function(menuId,menuName){
+            layer.open({
+                content: '确定要删除'+menuName+"?",
+                yes: function(index, layero){
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    CoreUtil.sendAjax("/api/permission/"+menuId,null,function (res) {
+                        layer.msg(res.msg);
+                        reloadTreeTable();
+                    },"DELETE",false,function (res) {
+                        //无权限删除菜单权限提示
+                        layer.msg("抱歉！您暂无删除菜单权限的权限");
+                    });
+                }
+            });
+        };
 
     });
 </script>

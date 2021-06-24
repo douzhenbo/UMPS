@@ -23,4 +23,9 @@ public interface SysPermissionMapper {
      * @return
      */
     List<SysPermission>selectAll();
+
+    /**
+     * 查找子集菜单
+     */
+    List<String>selectChild(String parentId);
 }

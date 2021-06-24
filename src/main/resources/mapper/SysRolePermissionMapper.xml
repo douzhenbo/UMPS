@@ -81,7 +81,7 @@
   </update>
 
   <!-- @Description:     批量插入角色和菜单权限关联数据-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <insert id="batchInsertRolePermission" parameterType="com.codecow.entity.SysRolePermission">
     insert into sys_role_permission(
     id,
@@ -101,7 +101,7 @@
   </insert>
 
 <!-- @Description:     通过权限查找关联的角色id集合-->
-<!-- @Author:          小霍-->
+<!-- @Author:          codecow-->
   <select id="getRoleIdsByPermissionId" resultType="java.lang.String">
     select role_id
     from sys_role_permission
@@ -109,28 +109,28 @@
   </select>
 
   <!-- @Description:     通过权限id删除关联的角色-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <delete id="removeByPermissionId">
     delete
     from sys_role_permission
     where permission_id=#{permissionId}
   </delete>
   <!-- @Description:     根据角色获取它管理的菜单权限-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <select id="getPermissionIdsByRoleId" resultType="java.lang.String">
     SELECT permission_id
     from sys_role_permission
     where role_id =#{roleId}
   </select>
   <!-- @Description:     通过角色id删除关联数据-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <delete id="removeByRoleId">
     delete
     from sys_role_permission
     where role_id=#{roleId}
   </delete>
   <!-- @Description:     通过用id集合查找到关联的权限id集合-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <select id="getPermissionIdsByRoleIds" resultType="java.lang.String">
     select permission_id
     from sys_role_permission

@@ -19,5 +19,7 @@ public interface SysRolePermissionMapper {
 
     int batchInsertRolePermission(List<SysRolePermission>list);
 
+    List<String>getRoleIdsByPermissionId(String permissionId);
+
 
 }

@@ -2,6 +2,8 @@ package com.codecow.service;
 
 import com.codecow.common.vo.req.RolePermissionAddReqVO;
 
+import java.util.List;
+
 /**
  * @author codecow
  * @version 1.0  UPMS
@@ -9,4 +11,5 @@ import com.codecow.common.vo.req.RolePermissionAddReqVO;
  **/
 public interface IRolePermissionService {
     void addRolePermission(RolePermissionAddReqVO vo);
+    List<String>getRoleIdsByPermissionId(String PermissionId);
 }

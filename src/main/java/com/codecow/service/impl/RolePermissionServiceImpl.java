@@ -44,4 +44,13 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
             throw new BusinessException(BaseResponseCode.DATA_ERROR);
         }
     }
+
+
+    /**
+     * 通过菜单id过去RoleIds
+     */
+    @Override
+    public List<String> getRoleIdsByPermissionId(String permissionId) {
+        return sysRolePermissionMapper.getRoleIdsByPermissionId(permissionId);
+    }
 }

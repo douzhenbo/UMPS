@@ -37,4 +37,11 @@ public interface SysUserRoleMapper {
      * @return
      */
     int batchInsertRoleIdsByUserId(List<SysUserRole>list);
+
+    /**
+     * 通过roleIds获取用户ids
+     * @param roleIds
+     * @return
+     */
+    List<String>getUserIdsByRoleIds(List<String>roleIds);
 }

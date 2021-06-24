@@ -52,4 +52,9 @@ public class UserRoleImpl implements IUserRoleService {
             throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
         }
     }
+
+    @Override
+    public List<String> getUserIdsByRoleIds(List<String> roleIds) {
+        return sysUserRoleMapper.getUserIdsByRoleIds(roleIds);
+    }
 }

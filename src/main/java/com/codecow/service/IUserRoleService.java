@@ -15,4 +15,6 @@ public interface IUserRoleService {
     List<String> getRoleIdsByUserId(String userId);
 
     void giveUserRoles(UserOwnRoleReqVO vo);
+
+    List<String>getUserIdsByRoleIds(List<String>roleIds);
 }

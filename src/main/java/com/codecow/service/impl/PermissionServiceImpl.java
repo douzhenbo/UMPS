@@ -1,12 +1,19 @@
 package com.codecow.service.impl;
 
+import com.codecow.common.constants.Constant;
 import com.codecow.common.exceptions.BusinessException;
 import com.codecow.common.exceptions.code.BaseResponseCode;
+import com.codecow.common.utils.jwtutils.TokenSetting;
 import com.codecow.common.vo.req.PermissionAddReqVO;
+import com.codecow.common.vo.req.PermissionUpdateReqVO;
 import com.codecow.common.vo.resp.PermissionRespNodeVO;
 import com.codecow.dao.SysPermissionMapper;
 import com.codecow.entity.SysPermission;
 import com.codecow.service.IPermissionService;
+import com.codecow.service.IRolePermissionService;
+import com.codecow.service.IUserRoleService;
+import com.codecow.service.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author codecow
@@ -23,9 +31,22 @@ import java.util.UUID;
  * @date 2021/6/18 10:52
  **/
 @Service
+@Slf4j
 public class PermissionServiceImpl implements IPermissionService {
     @Autowired
     private SysPermissionMapper sysPermissionMapper;
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Autowired
+    private IRolePermissionService rolePermissionService;
+
+    @Autowired
+    private TokenSetting tokenSetting;
 
     @Override
     public List<SysPermission> selectAll() {
@@ -191,6 +212,60 @@ public class PermissionServiceImpl implements IPermissionService {
                 }
                 break;
         }
+    }
+
+
+    /**
+     * @author codecow
+     * 更新菜单操作
+     */
+    @Override
+    public void updatePermission(PermissionUpdateReqVO vo) {
+        SysPermission update=new SysPermission();
+
+        BeanUtils.copyProperties(vo,update);
+
+        veriform(update);
+
+        SysPermission sysPermission=sysPermissionMapper.selectByPrimaryKey(vo.getId());
+
+        if(sysPermission==null){
+            log.info("传入的id在数据库中不存在");
+            throw new BusinessException(BaseResponseCode.DATA_ERROR);
+        }
+
+        if(!sysPermission.getPid().equals(vo.getPid())){
+            //所属菜单发生了变化，要判断所属菜单是否存在子集
+            if(sysPermissionMapper.selectChild(sysPermission.getId())!=null){
+                throw new BusinessException(BaseResponseCode.OPERATION_MENU_PERMISSION_UPDATE);
+            }
+        }
+
+        update.setUpdateTime(new Date());
+        int updates=sysPermissionMapper.updateByPrimaryKeySelective(update);
+
+        if(updates!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        //判断授权标识符是否发生了变化
+        if(!sysPermission.getPerms().equals(vo.getPerms())){
+            List<String>roleIds=rolePermissionService.getRoleIdsByPermissionId(vo.getId());
+
+            if(!roleIds.isEmpty()){
+                List<String>userIds=userRoleService.getUserIdsByRoleIds(roleIds);
+
+                if(!userIds.isEmpty()){
+                    for(String userId:userIds){
+                        redisService.set(Constant.JWT_REFRESH_KEY+userId,
+                                userId,tokenSetting.getAccessTokenExpireTime().toMillis(),
+                                TimeUnit.MILLISECONDS);
+                    }
+                }
+            }
+        }
+
+
     }
 
 
