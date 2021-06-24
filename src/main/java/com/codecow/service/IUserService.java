@@ -1,9 +1,6 @@
 package com.codecow.service;
 
-import com.codecow.common.vo.req.AddUserReqVO;
-import com.codecow.common.vo.req.LoginReqVO;
-import com.codecow.common.vo.req.UserOwnRoleReqVO;
-import com.codecow.common.vo.req.UserPageReqVO;
+import com.codecow.common.vo.req.*;
 import com.codecow.common.vo.resp.LoginRespVO;
 import com.codecow.common.vo.resp.PageVO;
 import com.codecow.common.vo.resp.UserOwnRoleRespVO;
@@ -18,10 +15,31 @@ import java.util.List;
  **/
 public interface IUserService {
     LoginRespVO login(LoginReqVO vo);
+
     PageVO<SysUser> pageInfo(UserPageReqVO vo);
+
     SysUser addUser(AddUserReqVO vo);
 
     UserOwnRoleRespVO getUserOwnRole(String userId);
 
     void setUserOwnRole(UserOwnRoleReqVO vo);
+
+    /**
+     * 自动刷新token
+     * @param refreshToken
+     * @return
+     */
+    String refreshToken(String refreshToken);
+
+
+    /**
+     * 更新用户信息
+     */
+    void updateUserInfo(UserUpdateReqVO vo,String operationId);
+
+
+    /**
+     * 删除用户&批量删除（逻辑删除）
+     */
+    void deleteUsers(List<String>list,String operationId);
 }

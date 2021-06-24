@@ -1,10 +1,9 @@
 package com.codecow.controller;
 
+import com.codecow.common.constants.Constant;
 import com.codecow.common.utils.DataResult;
-import com.codecow.common.vo.req.AddUserReqVO;
-import com.codecow.common.vo.req.LoginReqVO;
-import com.codecow.common.vo.req.UserOwnRoleReqVO;
-import com.codecow.common.vo.req.UserPageReqVO;
+import com.codecow.common.utils.jwtutils.JwtTokenUtil;
+import com.codecow.common.vo.req.*;
 import com.codecow.common.vo.resp.LoginRespVO;
 import com.codecow.common.vo.resp.PageVO;
 import com.codecow.common.vo.resp.UserOwnRoleRespVO;
@@ -12,11 +11,15 @@ import com.codecow.entity.SysUser;
 import com.codecow.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author codecow
@@ -71,4 +74,29 @@ public class UserController {
        userService.setUserOwnRole(vo);
        return DataResult.success();
     }
+
+
+    @ApiOperation(value = "自动刷新token，还没有更新文档")
+    @PostMapping("/user/refreshToken")
+    public DataResult refreshToken(HttpServletRequest servletRequest){
+        String refreshToken=servletRequest.getHeader(Constant.JWT_REFRESH_KEY);
+        return DataResult.success(userService.refreshToken(refreshToken));
+    }
+
+    @ApiOperation(value = "列表更新用户信息接口")
+    @PutMapping("/user/updateUser")
+    public DataResult updateUserInfo(@RequestBody @Valid UserUpdateReqVO vo,HttpServletRequest request){
+        userService.updateUserInfo(vo, JwtTokenUtil.getUserId(request.getHeader(Constant.ACCESS_TOKEN)));
+        DataResult result=DataResult.success();
+        return result;
+    }
+
+    @ApiOperation(value = "删除&批量删除用户接口")
+    @DeleteMapping ("/user/deleteUsers")
+    public DataResult deleteUsers(@RequestBody @ApiParam("用户id集合")List<String>list,HttpServletRequest request){
+        userService.deleteUsers(list,JwtTokenUtil.getUserId(request.getHeader(Constant.ACCESS_TOKEN)));
+        return DataResult.success();
+    }
+
+
 }

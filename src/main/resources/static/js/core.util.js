@@ -41,7 +41,7 @@ var CoreUtil = (function () {
                         var reAsync=async;
                         var reNoAuthorityFt=noAuthorityFt;
                         /*刷新token  然后存入缓存*/
-                        CoreUtil.sendAjax("/api/user/token",null,function (res) {
+                        CoreUtil.sendAjax("/user/refreshToken",null,function (res) {
                             if(res.code==0){
                                 CoreUtil.setData("access_token",res.data);
                                 setTimeout(function () {

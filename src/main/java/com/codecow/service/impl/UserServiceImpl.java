@@ -7,10 +7,7 @@ import com.codecow.common.utils.jwtutils.JwtTokenUtil;
 import com.codecow.common.utils.jwtutils.TokenSetting;
 import com.codecow.common.utils.pageutils.PageUtil;
 import com.codecow.common.utils.passwordutils.PasswordUtils;
-import com.codecow.common.vo.req.AddUserReqVO;
-import com.codecow.common.vo.req.LoginReqVO;
-import com.codecow.common.vo.req.UserOwnRoleReqVO;
-import com.codecow.common.vo.req.UserPageReqVO;
+import com.codecow.common.vo.req.*;
 import com.codecow.common.vo.resp.LoginRespVO;
 import com.codecow.common.vo.resp.PageVO;
 import com.codecow.common.vo.resp.UserOwnRoleRespVO;
@@ -32,6 +29,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -168,7 +166,85 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void setUserOwnRole(UserOwnRoleReqVO vo) {
         userRoleService.giveUserRoles(vo);
+        /**
+         * 标记用户要主动去刷新token
+         */
         redisService.set(Constant.JWT_REFRESH_KEY+vo.getUserId(),vo.getUserId(),
                 tokenSetting.getAccessTokenExpireTime().toMillis(), TimeUnit.MILLISECONDS);
+    }
+
+
+    @Override
+    public String refreshToken(String refreshToken) {
+        //校验这个刷新token是否有效
+        if(!JwtTokenUtil.validateToken(refreshToken)){
+            throw new BusinessException(BaseResponseCode.TOKEN_ERROR);
+        }
+
+        String userId=JwtTokenUtil.getUserId(refreshToken);
+        String username=JwtTokenUtil.getUserName(refreshToken);
+        Map<String,Object>cliams=new HashMap<>();
+        cliams.put(Constant.JWT_USER_NAME,username);
+        cliams.put(Constant.ROLES_INFOS_KEY,getRoleByUserId(userId));
+        cliams.put(Constant.PERMISSIONS_INFOS_KEY,getPermissionByUserId(userId));
+        String newAccessToken=JwtTokenUtil.getAccessToken(userId,cliams);
+        return newAccessToken;
+        //校验刷新token是否黑名单
+    }
+
+
+    @Override
+    public void updateUserInfo(UserUpdateReqVO vo,String operationId) {
+        SysUser user=new SysUser();
+        BeanUtils.copyProperties(vo,user);
+        user.setUpdateId(operationId);
+        user.setUpdateTime(new Date());
+
+        //判断密码是否为空
+        if(StringUtils.isEmpty(user.getPassword())){
+            user.setPassword(null);
+        }else{
+            String salt=PasswordUtils.getSalt();
+            String encode=PasswordUtils.encode(user.getPassword(),salt);
+            user.setSalt(salt);
+            user.setPassword(encode);
+        }
+
+        //判断是否更新成功，若没有更新成功便抛出异常
+        int update=sysUserMapper.updateByPrimaryKeySelective(user);
+        if(update!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        //如果被禁用则标记该用户（方便自动刷新token）
+        if(vo.getStatus()==2){
+            redisService.set(Constant.ACCOUNT_LOCK_KEY+vo.getId(),vo.getId());
+        }else{
+            redisService.delete(Constant.ACCOUNT_LOCK_KEY+vo.getId());
+        }
+    }
+
+
+    /**
+     * 删除&批量删除用户
+     */
+    @Override
+    public void deleteUsers(List<String> list, String operationId) {
+        SysUser sysUser=new SysUser();
+        sysUser.setUpdateId(operationId);
+        sysUser.setUpdateTime(new Date());
+        int delete=sysUserMapper.deleteUsers(sysUser,list);
+        if(delete==0){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        //标记被删除用户的token
+        for(String userId:list){
+            redisService.set(Constant.DELETED_USER_KEY+userId
+                    ,userId,
+                    tokenSetting.getRefreshTokenExpireAppTime().toMillis(),
+                    TimeUnit.MILLISECONDS);
+        }
+
     }
 }

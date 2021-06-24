@@ -54,6 +54,7 @@ public class ShiroConfig {
         //放开swagger-ui地址
         hashMap.put("/swagger/**", "anon");
         hashMap.put("/v2/api-docs", "anon");
+        hashMap.put("/user/refreshToken", "anon");
         hashMap.put("/swagger-ui.html", "anon");
         hashMap.put("/swagger-resources/**", "anon");
         hashMap.put("/webjars/**", "anon");
