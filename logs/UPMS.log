@@ -1585,3 +1585,276 @@ org.springframework.web.HttpRequestMethodNotSupportedException: Request method '
 2021-06-28 11:23:23.235 DEBUG 10004 --- [http-nio-8080-exec-7] c.c.d.S.getPermissionIdsByRoleId         : ==>  Preparing: SELECT permission_id from sys_role_permission where role_id =? 
 2021-06-28 11:23:23.235 DEBUG 10004 --- [http-nio-8080-exec-7] c.c.d.S.getPermissionIdsByRoleId         : ==> Parameters: 0a2ec83d-3f80-4aff-82dc-96f82092f487(String)
 2021-06-28 11:23:23.237 DEBUG 10004 --- [http-nio-8080-exec-7] c.c.d.S.getPermissionIdsByRoleId         : <==      Total: 3
+2021-06-28 11:24:54.484  INFO 10088 --- [restartedMain] com.codecow.UpmsApplication              : Starting UpmsApplication using Java 1.8.0_292 on DESKTOP-IVUB661 with PID 10088 (G:\springboot\UPMS\target\classes started by dzb in G:\springboot\UPMS)
+2021-06-28 11:24:54.487 DEBUG 10088 --- [restartedMain] com.codecow.UpmsApplication              : Running with Spring Boot v2.5.0, Spring v5.3.7
+2021-06-28 11:24:54.487  INFO 10088 --- [restartedMain] com.codecow.UpmsApplication              : No active profile set, falling back to default profiles: default
+2021-06-28 11:24:54.522  INFO 10088 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in E:\app\maven\apache-maven-3.8.1\maven-repo\com\sun\xml\bind\jaxb-core\2.3.0\jaxb-core-2.3.0.jar referenced one or more files that do not exist: file:/E:/app/maven/apache-maven-3.8.1/maven-repo/com/sun/xml/bind/jaxb-core/2.3.0/jaxb-api.jar
+2021-06-28 11:24:54.522  INFO 10088 --- [restartedMain] o.s.b.devtools.restart.ChangeableUrls    : The Class-Path manifest attribute in E:\app\maven\apache-maven-3.8.1\maven-repo\com\sun\xml\bind\jaxb-impl\2.3.0\jaxb-impl-2.3.0.jar referenced one or more files that do not exist: file:/E:/app/maven/apache-maven-3.8.1/maven-repo/com/sun/xml/bind/jaxb-impl/2.3.0/jaxb-core.jar
+2021-06-28 11:24:54.522  INFO 10088 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-06-28 11:24:54.523  INFO 10088 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-06-28 11:24:55.252  INFO 10088 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-06-28 11:24:55.253  INFO 10088 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-06-28 11:24:55.274  INFO 10088 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2021-06-28 11:24:55.502  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'shiroConfig' of type [com.codecow.config.shiroconfig.ShiroConfig$$EnhancerBySpringCGLIB$$238e0f76] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.551  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'redisConfig' of type [com.codecow.config.redisconfig.RedisConfig$$EnhancerBySpringCGLIB$$fe787f0a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.562  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.564  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.624  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.672  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.719  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.723  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'redisService' of type [com.codecow.service.RedisService] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.723  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'customHashedCredentialsMatcher' of type [com.codecow.config.shiroconfig.CustomHashedCredentialsMatcher] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.725  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'cacheManager' of type [com.codecow.config.shiroconfig.ShiroCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.727  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'customRealm' of type [com.codecow.config.shiroconfig.CustomRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.731  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.737  INFO 10088 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-28 11:24:55.969  INFO 10088 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-06-28 11:24:55.975  INFO 10088 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-06-28 11:24:55.976  INFO 10088 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-06-28 11:24:56.040  INFO 10088 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-06-28 11:24:56.041  INFO 10088 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1518 ms
+2021-06-28 11:24:56.127  INFO 10088 --- [restartedMain] c.a.d.s.b.a.DruidDataSourceAutoConfigure : Init DruidDataSource
+2021-06-28 11:24:56.469  INFO 10088 --- [restartedMain] com.alibaba.druid.pool.DruidDataSource   : {dataSource-1} inited
+2021-06-28 11:24:57.013  INFO 10088 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2021-06-28 11:24:57.150  INFO 10088 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-28 11:24:57.395  INFO 10088 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-06-28 11:24:57.396  INFO 10088 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2021-06-28 11:24:57.406  INFO 10088 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-06-28 11:24:57.427  INFO 10088 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2021-06-28 11:24:57.442  INFO 10088 --- [restartedMain] com.codecow.UpmsApplication              : Started UpmsApplication in 3.293 seconds (JVM running for 4.554)
+2021-06-28 11:24:57.443  INFO 10088 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+2021-06-28 11:24:57.445  INFO 10088 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-06-28 11:24:58.270  INFO 10088 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-06-28 11:24:58.270  INFO 10088 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-06-28 11:24:58.271  INFO 10088 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-06-28 11:24:58.764  INFO 10088 --- [http-nio-8080-exec-6] c.c.c.s.CustomAccessControlFilter        : request接口地址：/home
+2021-06-28 11:24:58.765  INFO 10088 --- [http-nio-8080-exec-6] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:24:58.921  INFO 10088 --- [http-nio-8080-exec-6] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:00.024 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:25:00.042 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:25:00.061 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:25:00.065 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:00.066 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:25:00.067 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:25:00.067 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:00.067 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:00.068 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:00.069 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:00.069 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:00.070 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:00.070 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:00.071 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:00.072 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:00.072 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:00.072 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:00.073 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:00.078 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.SysUserMapper.selectByPrimaryKey   : ==>  Preparing: select id, username, salt, `password`, phone, dept_id, real_name, nick_name, email, `status`, sex, deleted, create_id, update_id, create_where, create_time, update_time from sys_user where id = ? 
+2021-06-28 11:25:00.079 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.SysUserMapper.selectByPrimaryKey   : ==> Parameters: 9a26f5f1-cbd2-473d-82db-1d6dcf4598f8(String)
+2021-06-28 11:25:00.081 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.SysUserMapper.selectByPrimaryKey   : <==      Total: 1
+2021-06-28 11:25:00.966  INFO 10088 --- [http-nio-8080-exec-5] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getAllRoles
+2021-06-28 11:25:00.966  INFO 10088 --- [http-nio-8080-exec-5] c.c.c.s.CustomAccessControlFilter        : request请求方式：POST
+2021-06-28 11:25:00.967  INFO 10088 --- [http-nio-8080-exec-5] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:01.035 DEBUG 10088 --- [http-nio-8080-exec-5] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==>  Preparing: SELECT count(0) FROM sys_role WHERE deleted = 1 
+2021-06-28 11:25:01.035 DEBUG 10088 --- [http-nio-8080-exec-5] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==> Parameters: 
+2021-06-28 11:25:01.038 DEBUG 10088 --- [http-nio-8080-exec-5] c.c.dao.SysRoleMapper.selectAll_COUNT    : <==      Total: 1
+2021-06-28 11:25:01.039 DEBUG 10088 --- [http-nio-8080-exec-5] com.codecow.dao.SysRoleMapper.selectAll  : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role WHERE deleted=1 LIMIT ? 
+2021-06-28 11:25:01.039 DEBUG 10088 --- [http-nio-8080-exec-5] com.codecow.dao.SysRoleMapper.selectAll  : ==> Parameters: 10(Integer)
+2021-06-28 11:25:01.041 DEBUG 10088 --- [http-nio-8080-exec-5] com.codecow.dao.SysRoleMapper.selectAll  : <==      Total: 3
+2021-06-28 11:25:02.087  INFO 10088 --- [http-nio-8080-exec-9] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getRoleDetailInfo/226da270-a139-4656-8667-4cfb0599b32e
+2021-06-28 11:25:02.087  INFO 10088 --- [http-nio-8080-exec-9] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:25:02.089  INFO 10088 --- [http-nio-8080-exec-9] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:02.099 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role where id = ? 
+2021-06-28 11:25:02.099 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==> Parameters: 226da270-a139-4656-8667-4cfb0599b32e(String)
+2021-06-28 11:25:02.100 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.SysRoleMapper.selectByPrimaryKey   : <==      Total: 1
+2021-06-28 11:25:02.100 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:25:02.100 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:25:02.103 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:25:02.104 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:02.104 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:25:02.105 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:25:02.106 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:02.106 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:02.107 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:02.107 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:02.108 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:02.110 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:02.110 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:02.111 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:02.112 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:02.112 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:02.112 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:02.114 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:02.115 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.getPermissionIdsByRoleId         : ==>  Preparing: SELECT permission_id from sys_role_permission where role_id =? 
+2021-06-28 11:25:02.115 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.getPermissionIdsByRoleId         : ==> Parameters: 226da270-a139-4656-8667-4cfb0599b32e(String)
+2021-06-28 11:25:02.116 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.getPermissionIdsByRoleId         : <==      Total: 5
+2021-06-28 11:25:15.716  INFO 10088 --- [http-nio-8080-exec-4] c.c.c.s.CustomAccessControlFilter        : request接口地址：/home
+2021-06-28 11:25:15.717  INFO 10088 --- [http-nio-8080-exec-4] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:25:15.718  INFO 10088 --- [http-nio-8080-exec-4] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:15.724 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:25:15.724 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:25:15.726 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:25:15.726 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:15.727 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:25:15.728 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:25:15.728 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:15.728 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:15.729 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:15.730 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:15.731 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:15.732 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:15.733 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:15.734 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:15.735 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:15.735 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:15.736 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:15.737 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:15.738 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.SysUserMapper.selectByPrimaryKey   : ==>  Preparing: select id, username, salt, `password`, phone, dept_id, real_name, nick_name, email, `status`, sex, deleted, create_id, update_id, create_where, create_time, update_time from sys_user where id = ? 
+2021-06-28 11:25:15.738 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.SysUserMapper.selectByPrimaryKey   : ==> Parameters: 9a26f5f1-cbd2-473d-82db-1d6dcf4598f8(String)
+2021-06-28 11:25:15.739 DEBUG 10088 --- [http-nio-8080-exec-4] c.c.d.SysUserMapper.selectByPrimaryKey   : <==      Total: 1
+2021-06-28 11:25:16.814  INFO 10088 --- [http-nio-8080-exec-8] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getAllRoles
+2021-06-28 11:25:16.814  INFO 10088 --- [http-nio-8080-exec-8] c.c.c.s.CustomAccessControlFilter        : request请求方式：POST
+2021-06-28 11:25:16.831  INFO 10088 --- [http-nio-8080-exec-8] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:16.839 DEBUG 10088 --- [http-nio-8080-exec-8] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==>  Preparing: SELECT count(0) FROM sys_role WHERE deleted = 1 
+2021-06-28 11:25:16.839 DEBUG 10088 --- [http-nio-8080-exec-8] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==> Parameters: 
+2021-06-28 11:25:16.840 DEBUG 10088 --- [http-nio-8080-exec-8] c.c.dao.SysRoleMapper.selectAll_COUNT    : <==      Total: 1
+2021-06-28 11:25:16.841 DEBUG 10088 --- [http-nio-8080-exec-8] com.codecow.dao.SysRoleMapper.selectAll  : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role WHERE deleted=1 LIMIT ? 
+2021-06-28 11:25:16.841 DEBUG 10088 --- [http-nio-8080-exec-8] com.codecow.dao.SysRoleMapper.selectAll  : ==> Parameters: 10(Integer)
+2021-06-28 11:25:16.842 DEBUG 10088 --- [http-nio-8080-exec-8] com.codecow.dao.SysRoleMapper.selectAll  : <==      Total: 3
+2021-06-28 11:25:18.208  INFO 10088 --- [http-nio-8080-exec-7] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getRoleDetailInfo/0a2ec83d-3f80-4aff-82dc-96f82092f487
+2021-06-28 11:25:18.209  INFO 10088 --- [http-nio-8080-exec-7] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:25:18.209  INFO 10088 --- [http-nio-8080-exec-7] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:18.213 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role where id = ? 
+2021-06-28 11:25:18.214 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==> Parameters: 0a2ec83d-3f80-4aff-82dc-96f82092f487(String)
+2021-06-28 11:25:18.215 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.SysRoleMapper.selectByPrimaryKey   : <==      Total: 1
+2021-06-28 11:25:18.216 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:25:18.216 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:25:18.218 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:25:18.218 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:18.218 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:25:18.219 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:25:18.220 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:18.220 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:18.221 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:18.221 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:18.221 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:18.222 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:18.223 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:18.223 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:18.224 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:18.224 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:18.224 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:18.225 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:18.226 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.getPermissionIdsByRoleId         : ==>  Preparing: SELECT permission_id from sys_role_permission where role_id =? 
+2021-06-28 11:25:18.226 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.getPermissionIdsByRoleId         : ==> Parameters: 0a2ec83d-3f80-4aff-82dc-96f82092f487(String)
+2021-06-28 11:25:18.227 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.d.S.getPermissionIdsByRoleId         : <==      Total: 3
+2021-06-28 11:25:24.422  INFO 10088 --- [http-nio-8080-exec-3] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getAllRoles
+2021-06-28 11:25:24.422  INFO 10088 --- [http-nio-8080-exec-3] c.c.c.s.CustomAccessControlFilter        : request请求方式：POST
+2021-06-28 11:25:24.423  INFO 10088 --- [http-nio-8080-exec-3] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:24.431 DEBUG 10088 --- [http-nio-8080-exec-3] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==>  Preparing: SELECT count(0) FROM sys_role WHERE deleted = 1 
+2021-06-28 11:25:24.431 DEBUG 10088 --- [http-nio-8080-exec-3] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==> Parameters: 
+2021-06-28 11:25:24.432 DEBUG 10088 --- [http-nio-8080-exec-3] c.c.dao.SysRoleMapper.selectAll_COUNT    : <==      Total: 1
+2021-06-28 11:25:24.432 DEBUG 10088 --- [http-nio-8080-exec-3] com.codecow.dao.SysRoleMapper.selectAll  : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role WHERE deleted=1 LIMIT ? 
+2021-06-28 11:25:24.433 DEBUG 10088 --- [http-nio-8080-exec-3] com.codecow.dao.SysRoleMapper.selectAll  : ==> Parameters: 10(Integer)
+2021-06-28 11:25:24.434 DEBUG 10088 --- [http-nio-8080-exec-3] com.codecow.dao.SysRoleMapper.selectAll  : <==      Total: 3
+2021-06-28 11:25:25.695  INFO 10088 --- [http-nio-8080-exec-10] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getRoleDetailInfo/226da270-a139-4656-8667-4cfb0599b32e
+2021-06-28 11:25:25.695  INFO 10088 --- [http-nio-8080-exec-10] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:25:25.696  INFO 10088 --- [http-nio-8080-exec-10] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:25:25.700 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role where id = ? 
+2021-06-28 11:25:25.700 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==> Parameters: 226da270-a139-4656-8667-4cfb0599b32e(String)
+2021-06-28 11:25:25.701 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.SysRoleMapper.selectByPrimaryKey   : <==      Total: 1
+2021-06-28 11:25:25.701 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:25:25.701 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:25:25.703 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:25:25.703 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:25.703 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:25:25.704 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:25:25.705 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:25.705 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:25.706 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:25.707 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:25.707 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:25.708 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:25.708 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:25.708 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:25.709 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:25.709 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:25:25.710 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:25:25.710 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:25:25.711 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.getPermissionIdsByRoleId         : ==>  Preparing: SELECT permission_id from sys_role_permission where role_id =? 
+2021-06-28 11:25:25.711 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.getPermissionIdsByRoleId         : ==> Parameters: 226da270-a139-4656-8667-4cfb0599b32e(String)
+2021-06-28 11:25:25.712 DEBUG 10088 --- [http-nio-8080-exec-10] c.c.d.S.getPermissionIdsByRoleId         : <==      Total: 5
+2021-06-28 11:27:00.179  INFO 10088 --- [http-nio-8080-exec-7] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getAllRoles
+2021-06-28 11:27:00.179  INFO 10088 --- [http-nio-8080-exec-7] c.c.c.s.CustomAccessControlFilter        : request请求方式：POST
+2021-06-28 11:27:00.180  INFO 10088 --- [http-nio-8080-exec-7] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:27:00.189 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==>  Preparing: SELECT count(0) FROM sys_role WHERE deleted = 1 
+2021-06-28 11:27:00.189 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==> Parameters: 
+2021-06-28 11:27:00.190 DEBUG 10088 --- [http-nio-8080-exec-7] c.c.dao.SysRoleMapper.selectAll_COUNT    : <==      Total: 1
+2021-06-28 11:27:00.190 DEBUG 10088 --- [http-nio-8080-exec-7] com.codecow.dao.SysRoleMapper.selectAll  : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role WHERE deleted=1 LIMIT ? 
+2021-06-28 11:27:00.190 DEBUG 10088 --- [http-nio-8080-exec-7] com.codecow.dao.SysRoleMapper.selectAll  : ==> Parameters: 10(Integer)
+2021-06-28 11:27:00.191 DEBUG 10088 --- [http-nio-8080-exec-7] com.codecow.dao.SysRoleMapper.selectAll  : <==      Total: 3
+2021-06-28 11:27:00.955  INFO 10088 --- [http-nio-8080-exec-9] c.c.c.s.CustomAccessControlFilter        : request接口地址：/menu/getAllMenuTree
+2021-06-28 11:27:00.955  INFO 10088 --- [http-nio-8080-exec-9] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:27:00.955  INFO 10088 --- [http-nio-8080-exec-9] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:27:00.959 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:27:00.959 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:27:00.961 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:27:00.962 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:00.962 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:27:00.962 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:27:00.963 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:00.963 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:00.964 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:00.964 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:00.965 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:00.965 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:00.966 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:00.966 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:00.967 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:00.967 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:00.967 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:00.968 DEBUG 10088 --- [http-nio-8080-exec-9] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:23.446  INFO 10088 --- [http-nio-8080-exec-1] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/addRole
+2021-06-28 11:27:23.446  INFO 10088 --- [http-nio-8080-exec-1] c.c.c.s.CustomAccessControlFilter        : request请求方式：POST
+2021-06-28 11:27:23.447  INFO 10088 --- [http-nio-8080-exec-1] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:27:23.535 DEBUG 10088 --- [http-nio-8080-exec-1] c.c.dao.SysRoleMapper.insertSelective    : ==>  Preparing: insert into sys_role ( id, `name`, description, `status`, create_time ) values ( ?, ?, ?, ?, ? ) 
+2021-06-28 11:27:23.537 DEBUG 10088 --- [http-nio-8080-exec-1] c.c.dao.SysRoleMapper.insertSelective    : ==> Parameters: 4a4c8c18-e7bb-4b20-947c-a58a40813828(String), 角色回显测试(String), 欧阳(String), 1(Integer), 2021-06-28 11:27:23.534(Timestamp)
+2021-06-28 11:27:23.547 DEBUG 10088 --- [http-nio-8080-exec-1] c.c.dao.SysRoleMapper.insertSelective    : <==    Updates: 1
+2021-06-28 11:27:23.551 DEBUG 10088 --- [http-nio-8080-exec-1] c.c.d.S.batchInsertRolePermission        : ==>  Preparing: insert into sys_role_permission( id, role_id, permission_id, create_time ) values ( ?, ?, ?, ? ) , ( ?, ?, ?, ? ) 
+2021-06-28 11:27:23.552 DEBUG 10088 --- [http-nio-8080-exec-1] c.c.d.S.batchInsertRolePermission        : ==> Parameters: 51b29c51-4250-4262-94b7-f209724c35e2(String), 4a4c8c18-e7bb-4b20-947c-a58a40813828(String), 9d97e746-6499-4684-a166-5a5b78f08d32(String), 2021-06-28 11:27:23.547(Timestamp), 7d49d817-d1aa-4382-9e78-1890f8507070(String), 4a4c8c18-e7bb-4b20-947c-a58a40813828(String), 1cd4d3f5-7c87-4bca-9a2b-41a358c679af(String), 2021-06-28 11:27:23.547(Timestamp)
+2021-06-28 11:27:23.553 DEBUG 10088 --- [http-nio-8080-exec-1] c.c.d.S.batchInsertRolePermission        : <==    Updates: 2
+2021-06-28 11:27:23.568  INFO 10088 --- [http-nio-8080-exec-2] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getAllRoles
+2021-06-28 11:27:23.568  INFO 10088 --- [http-nio-8080-exec-2] c.c.c.s.CustomAccessControlFilter        : request请求方式：POST
+2021-06-28 11:27:23.569  INFO 10088 --- [http-nio-8080-exec-2] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:27:23.575 DEBUG 10088 --- [http-nio-8080-exec-2] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==>  Preparing: SELECT count(0) FROM sys_role WHERE deleted = 1 
+2021-06-28 11:27:23.575 DEBUG 10088 --- [http-nio-8080-exec-2] c.c.dao.SysRoleMapper.selectAll_COUNT    : ==> Parameters: 
+2021-06-28 11:27:23.576 DEBUG 10088 --- [http-nio-8080-exec-2] c.c.dao.SysRoleMapper.selectAll_COUNT    : <==      Total: 1
+2021-06-28 11:27:23.577 DEBUG 10088 --- [http-nio-8080-exec-2] com.codecow.dao.SysRoleMapper.selectAll  : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role WHERE deleted=1 LIMIT ? 
+2021-06-28 11:27:23.577 DEBUG 10088 --- [http-nio-8080-exec-2] com.codecow.dao.SysRoleMapper.selectAll  : ==> Parameters: 10(Integer)
+2021-06-28 11:27:23.579 DEBUG 10088 --- [http-nio-8080-exec-2] com.codecow.dao.SysRoleMapper.selectAll  : <==      Total: 4
+2021-06-28 11:27:27.925  INFO 10088 --- [http-nio-8080-exec-6] c.c.c.s.CustomAccessControlFilter        : request接口地址：/role/getRoleDetailInfo/4a4c8c18-e7bb-4b20-947c-a58a40813828
+2021-06-28 11:27:27.925  INFO 10088 --- [http-nio-8080-exec-6] c.c.c.s.CustomAccessControlFilter        : request请求方式：GET
+2021-06-28 11:27:27.925  INFO 10088 --- [http-nio-8080-exec-6] c.c.c.s.CustomHashedCredentialsMatcher   : doCredentialsMatch....userId=9a26f5f1-cbd2-473d-82db-1d6dcf4598f8
+2021-06-28 11:27:27.930 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==>  Preparing: select id, `name`, description, `status`, create_time, update_time, deleted from sys_role where id = ? 
+2021-06-28 11:27:27.930 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.SysRoleMapper.selectByPrimaryKey   : ==> Parameters: 4a4c8c18-e7bb-4b20-947c-a58a40813828(String)
+2021-06-28 11:27:27.931 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.SysRoleMapper.selectByPrimaryKey   : <==      Total: 1
+2021-06-28 11:27:27.931 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.dao.SysPermissionMapper.selectAll    : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where deleted=1 order by order_num desc 
+2021-06-28 11:27:27.931 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.dao.SysPermissionMapper.selectAll    : ==> Parameters: 
+2021-06-28 11:27:27.933 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.dao.SysPermissionMapper.selectAll    : <==      Total: 5
+2021-06-28 11:27:27.933 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:27.933 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 0(String)
+2021-06-28 11:27:27.934 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 0
+2021-06-28 11:27:27.934 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:27.934 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:27.935 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:27.936 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:27.936 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:27.937 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:27.937 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:27.937 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:27.938 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:27.938 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==>  Preparing: select id, code, `name`, perms, url, `method`, pid, order_num, `type`, `status`, create_time, update_time, deleted from sys_permission where id = ? 
+2021-06-28 11:27:27.938 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : ==> Parameters: 9d97e746-6499-4684-a166-5a5b78f08d32(String)
+2021-06-28 11:27:27.939 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.selectByPrimaryKey               : <==      Total: 1
+2021-06-28 11:27:27.940 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.getPermissionIdsByRoleId         : ==>  Preparing: SELECT permission_id from sys_role_permission where role_id =? 
+2021-06-28 11:27:27.940 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.getPermissionIdsByRoleId         : ==> Parameters: 4a4c8c18-e7bb-4b20-947c-a58a40813828(String)
+2021-06-28 11:27:27.941 DEBUG 10088 --- [http-nio-8080-exec-6] c.c.d.S.getPermissionIdsByRoleId         : <==      Total: 2
