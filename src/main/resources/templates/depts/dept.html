@@ -73,6 +73,12 @@
 
 </script>
 
+<script type="text/html" id="tool">
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" >删除</a>
+</script>
+
+
 <script src="/layui/layui.js"></script>
 <script src="/js/core.util.js"></script>
 
@@ -262,7 +268,7 @@
           layer.msg("抱歉！您暂无新增部门的权限");
         });
       }else {
-        CoreUtil.sendAjax("/dept/addDept",JSON.stringify(data.field),function (res) {
+        CoreUtil.sendAjax("/dept/updateDept",JSON.stringify(data.field),function (res) {
           loadDeptTreeTable();
           //显示表格
           $(".dept-table").show();
@@ -276,6 +282,47 @@
       return false;
     });
 
+
+    //操作项事件
+    table.on('tool(deptTable)',function (obj) {
+      var data = obj.data;
+      switch (obj.event) {
+        case 'edit':
+          selectNode=null;
+          //隐藏表格
+          $(".dept-table").hide();
+          //显示编辑窗口
+          $(".operation_dept").show();
+          $(".title").html("编辑部门");
+          $(".operation_dept input[name=id]").val(data.id);
+          $(".operation_dept input[name=pid]").val(data.pid);
+          $(".operation_dept input[name=name]").val(data.name);
+          $(".operation_dept input[name=pidName]").val(data.pidName);
+          $(".operation_dept input[name=managerName]").val(data.managerName);
+          $(".operation_dept input[name=phone]").val(data.phone);
+          if(data.status ==1){
+            $(".operation_dept input[name=status]").attr('checked', 'checked');
+            $(".operation_dept input[name=status]").attr('type', 'hidden').val(1);
+            var x = document.getElementsByClassName("layui-unselect layui-form-switch");
+            x[0].setAttribute("class", "layui-unselect layui-form-switch layui-form-onswitch");
+            var d = document.getElementsByTagName('em')[0];
+            d.firstChild.nodeValue = '启用';
+          }else {
+            $(".operation_dept input[name=status]").attr('type', 'hidden').removeAttr("checked").val(0);
+            var x = document.getElementsByClassName("layui-unselect layui-form-switch");
+            x[0].setAttribute("class", "layui-unselect layui-form-switch");
+            var d = document.getElementsByTagName('em')[0];
+            d.firstChild.nodeValue = '禁用';
+          }
+          form.render(); //更新全部
+          initTree(data.id);
+          break;
+        case 'del':
+          // layer.msg("确定删除"+data.name);
+          deletedDept(data.id,data.name);
+          break;
+      }
+    });
 
 
   });

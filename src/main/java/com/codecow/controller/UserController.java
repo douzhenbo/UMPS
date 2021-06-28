@@ -77,7 +77,7 @@ public class UserController {
 
 
     @ApiOperation(value = "自动刷新token，还没有更新文档")
-    @PostMapping("/user/refreshToken")
+    @GetMapping("/user/refreshToken")
     public DataResult refreshToken(HttpServletRequest servletRequest){
         String refreshToken=servletRequest.getHeader(Constant.JWT_REFRESH_KEY);
         return DataResult.success(userService.refreshToken(refreshToken));

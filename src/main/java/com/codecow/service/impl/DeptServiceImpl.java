@@ -5,6 +5,7 @@ import com.codecow.common.exceptions.BusinessException;
 import com.codecow.common.exceptions.code.BaseResponseCode;
 import com.codecow.common.utils.codeUtil.CodeUtil;
 import com.codecow.common.vo.req.DeptAddReqVO;
+import com.codecow.common.vo.req.DeptUpdateReqVO;
 import com.codecow.common.vo.resp.DeptRespNodeVO;
 import com.codecow.dao.SysDeptMapper;
 import com.codecow.entity.SysDept;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +53,20 @@ public class DeptServiceImpl implements IDeptService {
     }
 
     @Override
-    public List<DeptRespNodeVO> getDeptTreeList() {
+    public List<DeptRespNodeVO> getDeptTreeList(String deptId) {
         List<SysDept>list=selectAll();
+
+        //直接在数据源去除这个部门的叶子节点
+        if(!StringUtils.isEmpty(deptId)&&!list.isEmpty()){
+            for(SysDept s:list){
+                if(s.getId().equals(deptId)){
+                    list.remove(s);
+                    break;
+                }
+            }
+        }
+
+
         DeptRespNodeVO deptRespNodeVO=new DeptRespNodeVO();
         deptRespNodeVO.setId("0");
         deptRespNodeVO.setTitle("默认顶级部门");
@@ -124,4 +139,64 @@ public class DeptServiceImpl implements IDeptService {
         return list;
     }
 
+    /**
+     * 更新部门信息
+     * @param vo
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateDept(DeptUpdateReqVO vo) {
+        //保存更新部门
+        SysDept sysDept=sysDeptMapper.selectByPrimaryKey(vo.getId());
+
+        if(sysDept==null){
+            log.error("传入的部门id：{}错误",vo.getId());
+            throw new BusinessException(BaseResponseCode.DATA_ERROR);
+        }
+
+        SysDept updateDept=new SysDept();
+        BeanUtils.copyProperties(vo,updateDept);
+        sysDept.setUpdateTime(new Date());
+
+        int update=sysDeptMapper.updateByPrimaryKeySelective(updateDept);
+        if(update!=1){
+            throw new BusinessException(BaseResponseCode.DATA_ERROR);
+        }
+
+        //维护层级关系
+        if(vo.getPid().equals(sysDept.getPid())){
+            //子集部门关系的层级编码=父级部门层级关系编码+本身的部门编码
+            SysDept newParent=sysDeptMapper.selectByPrimaryKey(vo.getPid());
+            if(!vo.getPid().equals("0")&&newParent==null){
+                log.info("修改后的部门在数据库中查找不到！");
+                throw new BusinessException(BaseResponseCode.DATA_ERROR);
+            }
+
+            SysDept oldParent=sysDeptMapper.selectByPrimaryKey(sysDept.getPid());
+            String oldRelation;
+            String newRelation;
+
+            //根目录挂靠到其他目录
+            if(sysDept.getPid().equals("0")){
+                oldRelation=sysDept.getDeptNo();
+                newRelation=newParent.getRelationCode()+sysDept.getDeptNo();
+            }else if(vo.getPid().equals("0")){
+                oldRelation=sysDept.getRelationCode();
+                newRelation=sysDept.getDeptNo();
+            }else {
+                oldRelation=oldParent.getRelationCode();
+                newRelation=newParent.getRelationCode();
+            }
+
+
+            sysDeptMapper.updateRelationCode(oldRelation,newRelation,sysDept.getRelationCode());
+        }
+
+    }
+
+
+    @Override
+    public void deleteDept(String id) {
+
+    }
 }

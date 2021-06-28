@@ -51,7 +51,7 @@
     </div>
 </div>
 <div class="role_table_div">
-    <div id="searchParam" shiro:hasPermission="sys:role:list">
+    <div id="searchParam" >
         <div class="layui-form-item">
             <div class="layui-input-inline">
                 <input type="text" id="roleId" class="layui-input"  autocomplete="off" placeholder="请输入角色ID">
@@ -292,7 +292,7 @@
                     layer.msg("抱歉！您暂无新增角色信息详情的权限");
                 });
             }else {
-                CoreUtil.sendAjax("/role/addRole",JSON.stringify(params),function (res) {
+                CoreUtil.sendAjax("/role/updateRole",JSON.stringify(params),function (res) {
                     //显示表格
                     $(".role_table_div").show();
                     //隐藏编辑窗口
@@ -416,7 +416,7 @@
                 content: "确定要删除 "+name+" 角色么",
                 yes: function(index, layero){
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendAjax("/api/role/"+id,null,function (res) {
+                    CoreUtil.sendAjax("/role/deleteRole/"+id,null,function (res) {
                         layer.msg(res.msg);
                         $(".layui-laypage-btn").click();
                     },"DELETE",false,function (res) {

@@ -44,7 +44,7 @@ public enum BaseResponseCode implements ResponseCodeInterface{
 
     ;
 
-    BaseResponseCode(int code, String msg) {
+     BaseResponseCode(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

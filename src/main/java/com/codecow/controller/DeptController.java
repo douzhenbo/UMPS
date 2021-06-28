@@ -2,6 +2,7 @@ package com.codecow.controller;
 
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.vo.req.DeptAddReqVO;
+import com.codecow.common.vo.req.DeptUpdateReqVO;
 import com.codecow.common.vo.resp.DeptRespNodeVO;
 import com.codecow.entity.SysDept;
 import com.codecow.service.IDeptService;
@@ -34,11 +35,11 @@ public class DeptController {
         return dataResult;
     }
 
-    @ApiOperation(value = "获取部门树-添加部门时使用-添加用户时使用")
+    @ApiOperation(value = "获取部门树-添加部门时使用-添加用户时使用-编辑部门时使用")
     @GetMapping("/getDeptTree")
-    public DataResult<List<DeptRespNodeVO>>getDeptTree(){
+    public DataResult<List<DeptRespNodeVO>>getDeptTree(@RequestParam(required = false)String deptId){
         DataResult result=DataResult.success();
-        result.setData(deptService.getDeptTreeList());
+        result.setData(deptService.getDeptTreeList(deptId));
         return result;
     }
 
@@ -46,6 +47,13 @@ public class DeptController {
     @PostMapping("/addDept")
     public DataResult addDept(@RequestBody @Valid DeptAddReqVO vo){
         return DataResult.success(deptService.addDept(vo));
+    }
+
+    @ApiOperation(value = "更新部门信息")
+    @PutMapping("/updateDept")
+    public DataResult updateDept(@RequestBody @Valid DeptUpdateReqVO vo){
+        deptService.updateDept(vo);
+        return DataResult.success();
     }
 
 }

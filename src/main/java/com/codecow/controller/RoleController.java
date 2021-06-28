@@ -3,6 +3,7 @@ package com.codecow.controller;
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.vo.req.AddRoleReqVO;
 import com.codecow.common.vo.req.RolePageReqVO;
+import com.codecow.common.vo.req.RoleUpdateReqVO;
 import com.codecow.common.vo.resp.PageVO;
 import com.codecow.entity.SysRole;
 import com.codecow.service.IRoleService;
@@ -45,11 +46,26 @@ public class RoleController {
     }
 
 
-    @ApiModelProperty(value = "获取角色详情接口-编辑角色时使用")
+    @ApiOperation(value = "获取角色详情接口-编辑角色时使用")
     @GetMapping("/getRoleDetailInfo/{id}")
     public DataResult getRoleDetailInfo(@PathVariable("id")String roleId){
         SysRole sysRole=roleService.detailInfo(roleId);
         return DataResult.success(sysRole);
     }
 
+    @ApiOperation(value = "保存更新后的角色信息")
+    @PutMapping("/updateRole")
+    public DataResult updataRole(@RequestBody @Valid RoleUpdateReqVO vo){
+        System.out.println(vo);
+        roleService.updateRole(vo);
+        return DataResult.success();
+    }
+
+
+    @ApiOperation(value = "删除角色信息")
+    @DeleteMapping("/deleteRole/{id}")
+    public DataResult deleteRole(@PathVariable("id")String id){
+        roleService.deleteRole(id);
+        return DataResult.success();
+    }
 }

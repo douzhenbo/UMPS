@@ -47,11 +47,12 @@ public class CustomHashedCredentialsMatcher extends HashedCredentialsMatcher {
         /**
          * 判断用户是否被标记了
          */
-        if(redisService.hasKey(Constant.JWT_REFRESH_KEY+userId)){
+        if(redisService.hasKey(Constant.JWT_REFRESH_KEY+userId)) {
             /**
              * 判断用户是否已经刷新过
              */
-            if(redisService.getExpire(Constant.JWT_REFRESH_KEY+userId, TimeUnit.MILLISECONDS)>JwtTokenUtil.getRemainingTime(accessToken)){
+            if (redisService.getExpire(Constant.JWT_REFRESH_KEY + userId,
+                    TimeUnit.MILLISECONDS) > JwtTokenUtil.getRemainingTime(accessToken)) {
                 throw new BusinessException(BaseResponseCode.TOKEN_PAST_DUE);
             }
         }

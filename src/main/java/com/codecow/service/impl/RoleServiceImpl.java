@@ -47,6 +47,8 @@ public class RoleServiceImpl implements IRoleService {
 
     @Autowired
     RedisService redisService;
+    @Autowired
+    IUserRoleService userRoleService;
 
     @Autowired
     TokenSetting tokenSetting;
@@ -130,6 +132,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateRole(RoleUpdateReqVO vo) {
         //保存角色基本信息
         SysRole sysRole=sysRoleMapper.selectByPrimaryKey(vo.getId());
@@ -151,7 +154,7 @@ public class RoleServiceImpl implements IRoleService {
         //角色菜单关联表修改
         RolePermissionAddReqVO rolePermissionAddReqVO=new RolePermissionAddReqVO();
         rolePermissionAddReqVO.setRoleId(vo.getId());
-        rolePermissionAddReqVO.setPermissionIds(vo.getPermissions());
+        rolePermissionAddReqVO.setPermissionIds(vo.getPermissionIds());
         rolePermissionService.addRolePermission(rolePermissionAddReqVO);
 
         //标记拥有该角色的用户，以便刷新token
@@ -164,5 +167,37 @@ public class RoleServiceImpl implements IRoleService {
                     userId,tokenSetting.getAccessTokenExpireTime().toMillis(),
                     TimeUnit.MILLISECONDS);
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteRole(String roleId) {
+        SysRole sysRole=new SysRole();
+        sysRole.setUpdateTime(new Date());
+        sysRole.setId(roleId);
+        sysRole.setDeleted(0);
+        int i=sysRoleMapper.updateByPrimaryKeySelective(sysRole);
+        if(i!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        //删除角色和菜单权限关联数据
+        rolePermissionService.removeByRoleId(roleId);
+
+        //查询和该角色关联的用户
+        List<String>roleIds=new ArrayList<>();
+        roleIds.add(roleId);
+        List<String>userIds=sysUserRoleMapper.getUserIdsByRoleIds(roleIds);
+        //删除角色和用户关联的数据
+        userRoleService.removeUserRoleId(roleId);
+
+        if(!userIds.isEmpty()){
+            for(String userId:userIds){
+                redisService.set(Constant.JWT_REFRESH_KEY+userId,
+                        userId,tokenSetting.getAccessTokenExpireTime().toMillis(),
+                        TimeUnit.MILLISECONDS);
+            }
+        }
+
     }
 }
