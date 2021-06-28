@@ -14,4 +14,6 @@ public interface IRolePermissionService {
     List<String>getRoleIdsByPermissionId(String PermissionId);
 
     int removeByPermissionId(String permissionId);
+
+    List<String>getPermissionIdsByRoleId(String roleId);
 }

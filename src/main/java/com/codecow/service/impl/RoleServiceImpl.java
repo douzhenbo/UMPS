@@ -1,25 +1,29 @@
 package com.codecow.service.impl;
 
+import com.codecow.common.constants.Constant;
 import com.codecow.common.exceptions.BusinessException;
 import com.codecow.common.exceptions.code.BaseResponseCode;
+import com.codecow.common.utils.jwtutils.TokenSetting;
 import com.codecow.common.utils.pageutils.PageUtil;
 import com.codecow.common.vo.req.AddRoleReqVO;
 import com.codecow.common.vo.req.RolePageReqVO;
 import com.codecow.common.vo.req.RolePermissionAddReqVO;
+import com.codecow.common.vo.req.RoleUpdateReqVO;
 import com.codecow.common.vo.resp.PageVO;
+import com.codecow.common.vo.resp.PermissionRespNodeVO;
 import com.codecow.dao.SysRoleMapper;
+import com.codecow.dao.SysUserRoleMapper;
 import com.codecow.entity.SysRole;
-import com.codecow.service.IRolePermissionService;
-import com.codecow.service.IRoleService;
+import com.codecow.service.*;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author codecow
@@ -27,6 +31,7 @@ import java.util.UUID;
  * @date 2021/6/21 13:41
  **/
 @Service
+@Slf4j
 public class RoleServiceImpl implements IRoleService {
     @Autowired
     SysRoleMapper sysRoleMapper;
@@ -34,6 +39,17 @@ public class RoleServiceImpl implements IRoleService {
     @Autowired
     IRolePermissionService rolePermissionService;
 
+    @Autowired
+    IPermissionService permissionService;
+
+    @Autowired
+    SysUserRoleMapper sysUserRoleMapper;
+
+    @Autowired
+    RedisService redisService;
+
+    @Autowired
+    TokenSetting tokenSetting;
     @Override
     public PageVO<SysRole> getAllRoles(RolePageReqVO vo) {
         PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
@@ -76,4 +92,77 @@ public class RoleServiceImpl implements IRoleService {
     }
 
 
+    @Override
+    public SysRole detailInfo(String roleId) {
+        SysRole role=sysRoleMapper.selectByPrimaryKey(roleId);
+
+        if(role==null){
+            log.error("传入的id:{}不合法",roleId);
+            throw new BusinessException(BaseResponseCode.DATA_ERROR);
+        }
+
+        //获取所有菜单权限树
+        List<PermissionRespNodeVO>permissionRespNodeVOS=permissionService.selectAllTree();
+
+        //获取该角色拥有的菜单权限
+        List<String>permissionIds=rolePermissionService.getPermissionIdsByRoleId(roleId);
+        Set<String>checkList=new HashSet<>(permissionIds);
+        setChecked(permissionRespNodeVOS,checkList);
+        role.setPermissions(permissionRespNodeVOS);
+
+        return role;
+
+    }
+
+
+    public void setChecked(List<PermissionRespNodeVO>list,Set<String>checkList){
+        /**
+         * 子集选中则从它到根目录都被选中，根目录被选中则全被选中
+         */
+        for(PermissionRespNodeVO nodeVO:list){
+
+            if(checkList.contains(nodeVO.getId())&&(nodeVO.getChildren()==null||nodeVO.getChildren().isEmpty())){
+                nodeVO.setChecked(true);
+            }
+
+            setChecked((List<PermissionRespNodeVO>) nodeVO.getChildren(),checkList);
+        }
+    }
+
+    @Override
+    public void updateRole(RoleUpdateReqVO vo) {
+        //保存角色基本信息
+        SysRole sysRole=sysRoleMapper.selectByPrimaryKey(vo.getId());
+        //判断角色是否存在
+        if(sysRole==null){
+            log.error("传入id:{}不合法",vo.getId());
+            throw new BusinessException(BaseResponseCode.DATA_ERROR);
+        }
+        BeanUtils.copyProperties(vo,sysRole);
+
+        sysRole.setUpdateTime(new Date());
+
+        //角色信息保存
+        int update=sysRoleMapper.updateByPrimaryKeySelective(sysRole);
+        if(update!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        //角色菜单关联表修改
+        RolePermissionAddReqVO rolePermissionAddReqVO=new RolePermissionAddReqVO();
+        rolePermissionAddReqVO.setRoleId(vo.getId());
+        rolePermissionAddReqVO.setPermissionIds(vo.getPermissions());
+        rolePermissionService.addRolePermission(rolePermissionAddReqVO);
+
+        //标记拥有该角色的用户，以便刷新token
+        List<String>roleIds=new ArrayList<>();
+        roleIds.add(vo.getId());
+        List<String>userIds=sysUserRoleMapper.getUserIdsByRoleIds(roleIds);
+
+        for(String userId:userIds){
+            redisService.set(Constant.JWT_REFRESH_KEY+userId,
+                    userId,tokenSetting.getAccessTokenExpireTime().toMillis(),
+                    TimeUnit.MILLISECONDS);
+        }
+    }
 }

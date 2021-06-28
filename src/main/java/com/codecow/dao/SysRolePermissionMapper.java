@@ -23,4 +23,11 @@ public interface SysRolePermissionMapper {
 
     int removeByPermissionId(String permissionId);
 
+    /**
+     * 根据roldId获取与角色相关的菜单id(编辑角色时使用)
+     * @param roleId 角色id
+     * @return 返回与该角色相关的菜单id
+     */
+    List<String>getPermissionIdsByRoleId(String roleId);
+
 }

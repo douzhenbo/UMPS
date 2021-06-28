@@ -2,6 +2,7 @@ package com.codecow.service;
 
 import com.codecow.common.vo.req.AddRoleReqVO;
 import com.codecow.common.vo.req.RolePageReqVO;
+import com.codecow.common.vo.req.RoleUpdateReqVO;
 import com.codecow.common.vo.resp.PageVO;
 import com.codecow.entity.SysRole;
 
@@ -29,4 +30,13 @@ public interface IRoleService {
      * 查询所有角色（给用户赋予角色使用）
      */
     List<SysRole>selectAll();
+
+    /**
+     * 获取角色详情信息
+     * @param roleId 角色id
+     * @return 返回角色信息
+     */
+    SysRole detailInfo(String roleId);
+
+    void updateRole(RoleUpdateReqVO vo);
 }

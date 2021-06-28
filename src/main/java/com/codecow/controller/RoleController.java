@@ -7,12 +7,10 @@ import com.codecow.common.vo.resp.PageVO;
 import com.codecow.entity.SysRole;
 import com.codecow.service.IRoleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -41,8 +39,17 @@ public class RoleController {
 
     @ApiOperation(value = "新增角色")
     @PostMapping("/addRole")
-    DataResult addRole(@RequestBody @Valid AddRoleReqVO vo){
+    public DataResult addRole(@RequestBody @Valid AddRoleReqVO vo){
         SysRole sysRole= roleService.addRole(vo);
         return DataResult.success(sysRole);
     }
+
+
+    @ApiModelProperty(value = "获取角色详情接口-编辑角色时使用")
+    @GetMapping("/getRoleDetailInfo/{id}")
+    public DataResult getRoleDetailInfo(@PathVariable("id")String roleId){
+        SysRole sysRole=roleService.detailInfo(roleId);
+        return DataResult.success(sysRole);
+    }
+
 }

@@ -382,7 +382,7 @@
 
         //获取角色详情
         var getRoleDetail=function(id) {
-            CoreUtil.sendAjax("/api/role/" + id, null, function (res) {
+            CoreUtil.sendAjax("/role/getRoleDetailInfo/" + id, null, function (res) {
                 $(".operation_role input[name=id]").val(res.data.id);
                 $(".operation_role input[name=pid]").val(res.data.pid);
                 $(".operation_role input[name=name]").val(res.data.name);
@@ -401,7 +401,7 @@
                     var d = document.getElementsByTagName('em')[0];
                     d.firstChild.nodeValue = '禁用';
                 }
-                loadPermissionTree(res.data.permissionRespNode);
+                loadPermissionTree(res.data.permissions);
                 form.render(); //更新全部
 
             }, "GET", false,function (res) {
