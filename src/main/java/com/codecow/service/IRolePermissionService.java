@@ -16,4 +16,11 @@ public interface IRolePermissionService {
     int removeByPermissionId(String permissionId);
 
     List<String>getPermissionIdsByRoleId(String roleId);
+
+    /**
+     * 根据角色id解除角色和权限关联表
+     * @param roleId
+     * @return
+     */
+    int removeByRoleId(String roleId);
 }

@@ -44,4 +44,6 @@ public interface SysUserRoleMapper {
      * @return
      */
     List<String>getUserIdsByRoleIds(List<String>roleIds);
+
+    int removeUserRoleId(String roleId);
 }

@@ -38,5 +38,15 @@ public interface IRoleService {
      */
     SysRole detailInfo(String roleId);
 
+    /**
+     * 更新角色信息
+     * @param vo
+     */
     void updateRole(RoleUpdateReqVO vo);
+
+    /**
+     * 删除角色
+     * @param roleId
+     */
+    void deleteRole(String roleId);
 }

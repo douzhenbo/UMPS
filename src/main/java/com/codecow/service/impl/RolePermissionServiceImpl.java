@@ -26,6 +26,7 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
 
     @Override
     public void addRolePermission(RolePermissionAddReqVO vo) {
+        removeByRoleId(vo.getRoleId());
         if(vo.getPermissionIds()==null||vo.getPermissionIds().isEmpty()){
             return;
         }
@@ -62,5 +63,10 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
     @Override
     public List<String> getPermissionIdsByRoleId(String roleId) {
         return sysRolePermissionMapper.getPermissionIdsByRoleId(roleId);
+    }
+
+    @Override
+    public int removeByRoleId(String roleId) {
+        return sysRolePermissionMapper.removeByRoleId(roleId);
     }
 }
