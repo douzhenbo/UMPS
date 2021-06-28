@@ -52,4 +52,8 @@ public interface IPermissionService {
      */
     void updatePermission(PermissionUpdateReqVO vo);
 
+    /**
+     * 删除权限接口
+     */
+    void deletePermission(String permissionId);
 }

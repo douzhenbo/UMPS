@@ -47,10 +47,15 @@ public class RolePermissionServiceImpl implements IRolePermissionService {
 
 
     /**
-     * 通过菜单id过去RoleIds
+     * 通过菜单id获取RoleIds
      */
     @Override
     public List<String> getRoleIdsByPermissionId(String permissionId) {
         return sysRolePermissionMapper.getRoleIdsByPermissionId(permissionId);
+    }
+
+    @Override
+    public int removeByPermissionId(String permissionId) {
+        return sysRolePermissionMapper.removeByPermissionId(permissionId);
     }
 }

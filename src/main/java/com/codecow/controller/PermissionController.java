@@ -39,7 +39,6 @@ public class PermissionController {
     @GetMapping("/getMenuTree")
     public DataResult<List<PermissionRespNodeVO>> getMenuTree(){
         DataResult<List<PermissionRespNodeVO>>result=DataResult.success();
-        System.out.println("菜单树"+permissionService.selectAllMenuByTree());
         result.setData(permissionService.selectAllMenuByTree());
         return result;
     }
@@ -67,6 +66,14 @@ public class PermissionController {
         permissionService.updatePermission(vo);
         DataResult dataResult=DataResult.success();
         return dataResult;
+    }
+
+
+    @DeleteMapping("/deleteMenu/{permissionId}")
+    @ApiOperation(value = "删除菜单")
+    public DataResult deleteMenu(@PathVariable("permissionId")String permissionId){
+        permissionService.deletePermission(permissionId);
+        return DataResult.success();
     }
 
 }

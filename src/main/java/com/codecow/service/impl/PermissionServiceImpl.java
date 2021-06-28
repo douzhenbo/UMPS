@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -264,9 +265,45 @@ public class PermissionServiceImpl implements IPermissionService {
                 }
             }
         }
-
-
     }
 
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deletePermission(String permissionId) {
+        //判断是否有子集关联
+        List<SysPermission>sysPermissions=sysPermissionMapper.selectChild(permissionId);
+
+        //若存在子集关联，不允许删除
+        if(!sysPermissions.isEmpty()){
+            throw new BusinessException(BaseResponseCode.ROLE_PERMISSION_RELATION);
+        }
+
+        //物理删除菜单和权限关联表
+        rolePermissionService.removeByPermissionId(permissionId);
+
+        //逻辑删除菜单
+        SysPermission sysPermission=new SysPermission();
+        sysPermission.setUpdateTime(new Date());
+        sysPermission.setDeleted(0);
+        sysPermission.setId(permissionId);
+        int delete=sysPermissionMapper.updateByPrimaryKeySelective(sysPermission);
+        if(delete!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        //判断授权标识符是否发生了变化
+        List<String>roleIds=rolePermissionService.getRoleIdsByPermissionId(permissionId);
+        if(!roleIds.isEmpty()){
+            List<String>userIds=userRoleService.getUserIdsByRoleIds(roleIds);
+            if(!userIds.isEmpty()){
+                for(String userId:userIds){
+                    redisService.set(Constant.JWT_REFRESH_KEY+userId,
+                            userId,tokenSetting.getAccessTokenExpireTime().toMillis(),
+                            TimeUnit.MILLISECONDS);
+                }
+            }
+        }
+
+    }
 }

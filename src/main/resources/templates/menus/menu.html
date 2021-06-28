@@ -397,7 +397,7 @@
                 content: '确定要删除'+menuName+"?",
                 yes: function(index, layero){
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendAjax("/api/permission/"+menuId,null,function (res) {
+                    CoreUtil.sendAjax("/menu/deleteMenu/"+menuId,null,function (res) {
                         layer.msg(res.msg);
                         reloadTreeTable();
                     },"DELETE",false,function (res) {
