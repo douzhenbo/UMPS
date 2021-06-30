@@ -9,10 +9,9 @@ import com.codecow.service.ILogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author codecow
@@ -29,10 +28,21 @@ public class LogController {
 
     @PostMapping("/getLogs")
     @ApiOperation(value = "获取日志信息")
+    @MyLog(title = "系统管理-日志管理",action = "获取日志信息")
     public DataResult<PageVO<SysLog>> pageInfo(@RequestBody SysLogPageReqVO vo){
         PageVO<SysLog> sysLogPageVO = logService.pageInfo(vo);
         DataResult<PageVO<SysLog>> result= DataResult.success();
         result.setData(sysLogPageVO);
         return result;
     }
+
+    @DeleteMapping("/deleteLogs")
+    @ApiOperation(value = "删除日志接口")
+    @MyLog(title = "系统管理-日志管理",action = "批量删除日志信息")
+    public DataResult deleted(@RequestBody List<String> logIds){
+        DataResult result=DataResult.success();
+        result.setData(logService.deleted(logIds));
+        return result;
+    }
+
 }

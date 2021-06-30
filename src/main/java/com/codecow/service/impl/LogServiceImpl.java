@@ -27,4 +27,9 @@ public class LogServiceImpl implements ILogService {
         List<SysLog> sysLogs = sysLogMapper.selectAll(vo);
         return PageUtil.getPageVo(sysLogs);
     }
+
+    @Override
+    public int deleted(List<String> logIds) {
+        return sysLogMapper.batchDeletedLog(logIds);
+    }
 }

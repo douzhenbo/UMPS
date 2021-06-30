@@ -43,7 +43,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.douzhenbo.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.codecow.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(par)

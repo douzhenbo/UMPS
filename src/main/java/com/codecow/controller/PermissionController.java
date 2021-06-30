@@ -51,7 +51,6 @@ public class PermissionController {
     @MyLog(title="菜单管理",action = "新增菜单权限")
     public DataResult addMenu(@RequestBody @Valid PermissionAddReqVO permissionAddReqVO){
         SysPermission sysPermission=permissionService.addPermission(permissionAddReqVO);
-        System.out.println(sysPermission);
         return DataResult.success(sysPermission);
     }
 

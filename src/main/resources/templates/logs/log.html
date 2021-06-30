@@ -30,6 +30,18 @@
     <div id="laypage" class="layui-laypage-btn"></div>
 </body>
 
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn" lay-event="batchDelLog">
+            <i class="layui-icon">&#xe608;</i> 批量删除
+        </button>
+    </div>
+</script>
+
+<script type="text/html" id="tool">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delLog" >删除</a>
+</script>
+
 <script src="/layui/layui.js"></script>
 <script src="/js/core.util.js"></script>
 
@@ -51,7 +63,7 @@
         };
         CoreUtil.sendAjax("/log/getLogs",JSON.stringify(searchParam),function (res) {
             //初始化分页插件
-            laypageTable(res.data.totalRows,searchParam.pageNum);
+            laypageTable(res.data.totalAccount,searchParam.pageNum);
             //异步加载表格数据
             if(res.data.list !=null){
                 loadTable(res.data.list);
@@ -79,7 +91,7 @@
                             if(res.data.list !=null){
                                 loadTable(res.data.list);
 
-                                laypageTable(res.data.totalRows,searchParam.pageNum);
+                                laypageTable(res.data.totalAccount,searchParam.pageNum);
                             }
 
                         },"POST",false,function (res) {
@@ -132,7 +144,7 @@
             searchParam.pageNum=1;
             CoreUtil.sendAjax("/log/getLogs",JSON.stringify(searchParam),function (res) {
                 //初始化分页器
-                laypageTable(res.data.totalRows,searchParam.pageNum);
+                laypageTable(res.data.totalAccount,searchParam.pageNum);
                 //初始化渲染数据
                 if(res.data.list !=null){
                     loadTable(res.data.list);
@@ -202,7 +214,7 @@
                 content: '确定要删除么',
                 yes: function(index, layero){
                     layer.close(index); //如果设定了yes回调，需进行手工关闭
-                    CoreUtil.sendAjax("/api/log",JSON.stringify(logIds),function (res) {
+                    CoreUtil.sendAjax("/log/deleteLogs",JSON.stringify(logIds),function (res) {
                         layer.msg(res.msg);
                         $(".layui-laypage-btn").click();
                     },"DELETE",false,function (res) {

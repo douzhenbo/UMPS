@@ -20,4 +20,7 @@ public interface SysLogMapper {
 
 
     List<SysLog>selectAll(SysLogPageReqVO vo);
+
+
+    int batchDeletedLog(List<String> logIds);
 }

@@ -5,6 +5,8 @@ import com.codecow.common.vo.resp.PageVO;
 import com.codecow.entity.SysLog;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * @author codecow
  * @version 1.0  UPMS
@@ -17,4 +19,6 @@ public interface ILogService {
      * @return
      */
     PageVO<SysLog>pageInfo(SysLogPageReqVO vo);
+
+    int deleted(List<String> logIds);
 }
