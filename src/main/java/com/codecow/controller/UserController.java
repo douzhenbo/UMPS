@@ -1,5 +1,6 @@
 package com.codecow.controller;
 
+import com.codecow.aop.annotation.MyLog;
 import com.codecow.common.constants.Constant;
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.utils.jwtutils.JwtTokenUtil;
@@ -37,6 +38,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "用户登录接口")
+    @MyLog(title = "用户管理",action = "用户登录")
     public DataResult<LoginRespVO> login(@RequestBody LoginReqVO vo){
         DataResult<LoginRespVO> result= DataResult.success();
         result.setData(userService.login(vo));
@@ -46,7 +48,7 @@ public class UserController {
 
     @PostMapping("/user/getUserList")
     @ApiOperation(value = "获取用户列表")
-    @RequiresPermissions("sys:user:list")
+    @MyLog(title = "用户管理",action = "获取用户列表")
     public DataResult getUserList(@RequestBody UserPageReqVO vo){
         PageVO<SysUser> sysUserPageInfo=userService.pageInfo(vo);
         return DataResult.success(sysUserPageInfo);
@@ -54,6 +56,7 @@ public class UserController {
 
     @PostMapping("/user/addUser")
     @ApiOperation(value = "添加用户接口")
+    @MyLog(title = "用户管理",action = "添加用户")
     public DataResult addUser(@RequestBody @Valid AddUserReqVO vo){
         userService.addUser(vo);
         return DataResult.success();
@@ -61,6 +64,7 @@ public class UserController {
 
     @GetMapping("/user/getUserRoles/{userId}")
     @ApiOperation(value = "获取用户所拥有的角色和所有角色")
+    @MyLog(title = "用户管理",action = "获取用户所拥有的角色和所有角色")
     public DataResult<UserOwnRoleRespVO>getUserRoles(@PathVariable("userId") String userId){
         DataResult result=DataResult.success();
         result.setData(userService.getUserOwnRole(userId));
@@ -70,6 +74,7 @@ public class UserController {
 
     @PutMapping("/user/giveRoles")
     @ApiOperation(value = "赋予用户角色")
+    @MyLog(title = "用户管理",action = "赋予用户角色")
     public DataResult giveRoles(@RequestBody @Valid UserOwnRoleReqVO vo){
        userService.setUserOwnRole(vo);
        return DataResult.success();
@@ -78,6 +83,7 @@ public class UserController {
 
     @ApiOperation(value = "自动刷新token，还没有更新文档")
     @GetMapping("/user/refreshToken")
+    @MyLog(title = "用户管理",action = "自动刷新token")
     public DataResult refreshToken(HttpServletRequest servletRequest){
         String refreshToken=servletRequest.getHeader(Constant.JWT_REFRESH_KEY);
         return DataResult.success(userService.refreshToken(refreshToken));
@@ -85,6 +91,7 @@ public class UserController {
 
     @ApiOperation(value = "列表更新用户信息接口")
     @PutMapping("/user/updateUser")
+    @MyLog(title = "用户管理",action = "列表更新用户信息")
     public DataResult updateUserInfo(@RequestBody @Valid UserUpdateReqVO vo,HttpServletRequest request){
         userService.updateUserInfo(vo, JwtTokenUtil.getUserId(request.getHeader(Constant.ACCESS_TOKEN)));
         DataResult result=DataResult.success();
@@ -93,6 +100,7 @@ public class UserController {
 
     @ApiOperation(value = "删除&批量删除用户接口")
     @DeleteMapping ("/user/deleteUsers")
+    @MyLog(title = "用户管理",action = "删除&批量删除用户")
     public DataResult deleteUsers(@RequestBody @ApiParam("用户id集合")List<String>list,HttpServletRequest request){
         userService.deleteUsers(list,JwtTokenUtil.getUserId(request.getHeader(Constant.ACCESS_TOKEN)));
         return DataResult.success();

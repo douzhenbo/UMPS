@@ -1,5 +1,6 @@
 package com.codecow.controller;
 
+import com.codecow.aop.annotation.MyLog;
 import com.codecow.common.constants.Constant;
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.utils.jwtutils.JwtTokenUtil;
@@ -27,6 +28,7 @@ public class HomeController {
 
     @ApiOperation(value = "获取首页信息（用户，菜单（权限），部门）")
     @GetMapping("/home")
+    @MyLog(title = "首页模块",action = "获取首页数据")
     public DataResult<HomeRespVO> getHome(HttpServletRequest request){
         String accessToken=request.getHeader(Constant.ACCESS_TOKEN);
         String userId= JwtTokenUtil.getUserId(accessToken);

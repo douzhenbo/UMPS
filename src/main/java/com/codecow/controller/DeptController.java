@@ -1,5 +1,6 @@
 package com.codecow.controller;
 
+import com.codecow.aop.annotation.MyLog;
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.vo.req.DeptAddReqVO;
 import com.codecow.common.vo.req.DeptUpdateReqVO;
@@ -29,6 +30,7 @@ public class DeptController {
 
     @ApiOperation(value = "获取所有的部门信息接口")
     @GetMapping("getDeptList")
+    @MyLog(title = "部门管理",action = "获取所有的部门信息接口")
     public DataResult<List<SysDept>> getDeptList(){
         DataResult dataResult=DataResult.success();
         dataResult.setData(deptService.selectAll());
@@ -37,6 +39,7 @@ public class DeptController {
 
     @ApiOperation(value = "获取部门树-添加部门时使用-添加用户时使用-编辑部门时使用")
     @GetMapping("/getDeptTree")
+    @MyLog(title = "部门管理",action = "获取部门树-添加部门时使用-添加用户时使用-编辑部门时使用")
     public DataResult<List<DeptRespNodeVO>>getDeptTree(@RequestParam(required = false)String deptId){
         DataResult result=DataResult.success();
         result.setData(deptService.getDeptTreeList(deptId));
@@ -45,12 +48,14 @@ public class DeptController {
 
     @ApiOperation(value = "新增部门")
     @PostMapping("/addDept")
+    @MyLog(title = "部门管理",action = "新增部门")
     public DataResult addDept(@RequestBody @Valid DeptAddReqVO vo){
         return DataResult.success(deptService.addDept(vo));
     }
 
     @ApiOperation(value = "更新部门信息")
     @PutMapping("/updateDept")
+    @MyLog(title = "部门管理",action = "更新部门信息")
     public DataResult updateDept(@RequestBody @Valid DeptUpdateReqVO vo){
         deptService.updateDept(vo);
         return DataResult.success();

@@ -139,8 +139,33 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
+
+  <!-- @Description:     分页查找操作日志-->
+  <!-- @Author:          codecow-->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.codecow.common.vo.req.SysLogPageReqVO">
+    select <include refid="Base_Column_List"></include>
+    from sys_log
+    <where>
+      <if test="username !=null and username !=''">
+        and username like concat('%',#{username},'%')
+      </if>
+      <if test="userId !=null and userId !=''">
+        and user_id=#{userId}
+      </if>
+      <if test="operation !=null and operation !=''">
+        and operation like concat('%',#{operation},'%')
+      </if>
+      <if test="startTime !=null and startTime !=''">
+        and create_time &gt;= #{startTime}
+      </if>
+      <if test="endTime !=null and endTime !=''">
+        and create_time &lt;= #{endTime}
+      </if>
+    </where>
+  </select>
+
   <!-- @Description:     批量删除系统操作日志-->
-  <!-- @Author:          小霍-->
+  <!-- @Author:          codecow-->
   <delete id="batchDeletedLog">
     delete
     from sys_log
@@ -149,4 +174,6 @@
       #{item}
     </foreach>
   </delete>
+
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.codecow.controller;
 
+import com.codecow.aop.annotation.MyLog;
 import com.codecow.common.utils.DataResult;
 import com.codecow.common.vo.req.PermissionAddReqVO;
 import com.codecow.common.vo.req.PermissionUpdateReqVO;
@@ -29,6 +30,7 @@ public class PermissionController {
 
     @ApiOperation("获取所有的菜单权限数据")
     @GetMapping("/getAllMenus")
+    @MyLog(title = "菜单管理",action = "获取所有菜单权限数据")
     public DataResult<List<SysPermission>> getAllMenus(){
         DataResult<List<SysPermission>> result=DataResult.success();
         result.setData(permissionService.selectAll());
@@ -37,6 +39,7 @@ public class PermissionController {
 
     @ApiOperation("获取菜单权限树-菜单级别")
     @GetMapping("/getMenuTree")
+    @MyLog(title = "菜单管理",action = "获取菜单权限树-菜单级别")
     public DataResult<List<PermissionRespNodeVO>> getMenuTree(){
         DataResult<List<PermissionRespNodeVO>>result=DataResult.success();
         result.setData(permissionService.selectAllMenuByTree());
@@ -45,6 +48,7 @@ public class PermissionController {
 
     @ApiOperation("新增菜单权限")
     @PostMapping("/addMenu")
+    @MyLog(title="菜单管理",action = "新增菜单权限")
     public DataResult addMenu(@RequestBody @Valid PermissionAddReqVO permissionAddReqVO){
         SysPermission sysPermission=permissionService.addPermission(permissionAddReqVO);
         System.out.println(sysPermission);
@@ -54,14 +58,17 @@ public class PermissionController {
 
     @ApiOperation(value = "获取到按钮级别的菜单树,用于新增角色")
     @GetMapping("/getAllMenuTree")
+    @MyLog(title = "菜单管理",action ="获取到按钮级别的菜单树,用于新增角色")
     public DataResult<List<PermissionRespNodeVO>> getAllMenuTree(){
         DataResult dataResult=DataResult.success();
         dataResult.setData(permissionService.selectAllTree());
         return dataResult;
     }
 
+
     @ApiOperation(value = "编辑菜单接口")
     @PutMapping("/updateMenu")
+    @MyLog(title = "菜单管理",action = "编辑菜单")
     public DataResult updateMenu(@RequestBody@Valid PermissionUpdateReqVO vo){
         permissionService.updatePermission(vo);
         DataResult dataResult=DataResult.success();
@@ -71,6 +78,7 @@ public class PermissionController {
 
     @DeleteMapping("/deleteMenu/{permissionId}")
     @ApiOperation(value = "删除菜单")
+    @MyLog(title = "菜单管理",action = "删除菜单")
     public DataResult deleteMenu(@PathVariable("permissionId")String permissionId){
         permissionService.deletePermission(permissionId);
         return DataResult.success();

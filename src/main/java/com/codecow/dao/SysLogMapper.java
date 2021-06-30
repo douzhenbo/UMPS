@@ -1,6 +1,9 @@
 package com.codecow.dao;
 
+import com.codecow.common.vo.req.SysLogPageReqVO;
 import com.codecow.entity.SysLog;
+
+import java.util.List;
 
 public interface SysLogMapper {
     int deleteByPrimaryKey(String id);
@@ -14,4 +17,7 @@ public interface SysLogMapper {
     int updateByPrimaryKeySelective(SysLog record);
 
     int updateByPrimaryKey(SysLog record);
+
+
+    List<SysLog>selectAll(SysLogPageReqVO vo);
 }
