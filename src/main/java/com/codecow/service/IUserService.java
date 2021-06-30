@@ -42,4 +42,14 @@ public interface IUserService {
      * 删除用户&批量删除（逻辑删除）
      */
     void deleteUsers(List<String>list,String operationId);
+
+
+
+    void logout(String accessToken,String refreshToken);
+
+
+    SysUser detailUserInfo(String userId);
+
+    //个人用户编辑信息接口
+    void userUpdateDetailInfo(UserUpdateDetailReqVO vo,String userId);
 }

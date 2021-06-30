@@ -52,5 +52,13 @@ public class Constant {
     public static final String IDENTIFY_CACHE_KEY="shiro-cache:com.douzhenbo.shiroconfig.CustomRealm.authorizationCache:";
 
 
+    /**
+     * refresh_token 主动退出后加入黑名单 key
+     */
+    public static final String JWT_REFRESH_TOKEN_BLACKLIST="jwt-refresh-token-blacklist_";
+    /**
+     * access_token 主动退出后加入黑名单 key
+     */
+    public static final String JWT_ACCESS_TOKEN_BLACKLIST="jwt-access-token-blacklist_";
 }
 

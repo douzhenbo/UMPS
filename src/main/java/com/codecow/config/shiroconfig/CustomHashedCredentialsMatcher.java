@@ -39,6 +39,14 @@ public class CustomHashedCredentialsMatcher extends HashedCredentialsMatcher {
         if(redisService.hasKey(Constant.ACCOUNT_LOCK_KEY+userId)){
             throw new BusinessException(BaseResponseCode.ACCOUNT_LOCK_TIP);
         }
+
+        /**
+         * 判断用户是否退出登录
+         */
+        if(redisService.hasKey(Constant.JWT_ACCESS_TOKEN_BLACKLIST+accessToken)){
+            throw new BusinessException(BaseResponseCode.TOKEN_ERROR);
+        }
+
         //校验token
         if(!JwtTokenUtil.validateToken(accessToken)){
             throw new BusinessException(BaseResponseCode.TOKEN_PAST_DUE);
@@ -56,6 +64,8 @@ public class CustomHashedCredentialsMatcher extends HashedCredentialsMatcher {
                 throw new BusinessException(BaseResponseCode.TOKEN_PAST_DUE);
             }
         }
+
+
         return true;
     }
 }

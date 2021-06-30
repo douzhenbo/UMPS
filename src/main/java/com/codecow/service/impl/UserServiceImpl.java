@@ -25,6 +25,8 @@ import com.codecow.service.IUserService;
 import com.codecow.service.RedisService;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -177,7 +179,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public String refreshToken(String refreshToken) {
         //校验这个刷新token是否有效
-        if(!JwtTokenUtil.validateToken(refreshToken)){
+        //它是否过期
+        //它是否被加如了黑名
+        if(!JwtTokenUtil.validateToken(refreshToken)||redisService.hasKey(Constant.JWT_REFRESH_TOKEN_BLACKLIST+refreshToken)){
             throw new BusinessException(BaseResponseCode.TOKEN_ERROR);
         }
 
@@ -244,6 +248,58 @@ public class UserServiceImpl implements IUserService {
                     ,userId,
                     tokenSetting.getRefreshTokenExpireAppTime().toMillis(),
                     TimeUnit.MILLISECONDS);
+        }
+
+    }
+
+
+
+    @Override
+    public void logout(String accessToken, String refreshToken) {
+        if(StringUtils.isEmpty(accessToken)||StringUtils.isEmpty(refreshToken)){
+            throw new BusinessException(BaseResponseCode.DATA_ERROR);
+        }
+
+        Subject subject = SecurityUtils.getSubject();
+        log.info("subject.getPrincipals()={}",subject.getPrincipals());
+        if (subject.isAuthenticated()) {
+            subject.logout();
+        }
+        String userId=JwtTokenUtil.getUserId(accessToken);
+        /**
+         * 把token 加入黑名单 禁止再登录
+         */
+
+        redisService.set(Constant.JWT_ACCESS_TOKEN_BLACKLIST+accessToken,
+                userId,
+                JwtTokenUtil.getRemainingTime(accessToken),
+                TimeUnit.MILLISECONDS);
+        /**
+         * 把 refreshToken 加入黑名单 禁止再拿来刷新token
+         */
+
+        redisService.set(Constant.JWT_REFRESH_TOKEN_BLACKLIST+refreshToken,
+                userId,
+                JwtTokenUtil.getRemainingTime(refreshToken),
+                TimeUnit.MILLISECONDS);
+    }
+
+
+    @Override
+    public SysUser detailUserInfo(String userId) {
+        return sysUserMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public void userUpdateDetailInfo(UserUpdateDetailReqVO vo, String userId) {
+        SysUser sysUser=new SysUser();
+        BeanUtils.copyProperties(vo,sysUser);
+        sysUser.setId(userId);
+        sysUser.setUpdateTime(new Date());
+        sysUser.setUpdateId(userId);
+        int count= sysUserMapper.updateByPrimaryKeySelective(sysUser);
+        if (count!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
         }
 
     }

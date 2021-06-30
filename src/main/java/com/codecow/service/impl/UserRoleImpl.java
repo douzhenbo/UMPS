@@ -62,4 +62,6 @@ public class UserRoleImpl implements IUserRoleService {
     public int removeUserRoleId(String id) {
         return  sysUserRoleMapper.removeUserRoleId(id);
     }
+
+
 }
