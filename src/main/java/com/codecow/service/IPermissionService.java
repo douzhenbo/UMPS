@@ -56,4 +56,13 @@ public interface IPermissionService {
      * 删除权限接口
      */
     void deletePermission(String permissionId);
+
+
+    /**
+     * 获取用户权限
+     */
+
+    List<String> getPermissionByUserId(String userId);
+
+    List<SysPermission> getPermissions(String userId);
 }

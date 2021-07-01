@@ -8,6 +8,7 @@ import com.codecow.entity.SysLog;
 import com.codecow.service.ILogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class LogController {
     @PostMapping("/getLogs")
     @ApiOperation(value = "获取日志信息")
     @MyLog(title = "系统管理-日志管理",action = "获取日志信息")
+    @RequiresPermissions("sys:log:list")
     public DataResult<PageVO<SysLog>> pageInfo(@RequestBody SysLogPageReqVO vo){
         PageVO<SysLog> sysLogPageVO = logService.pageInfo(vo);
         DataResult<PageVO<SysLog>> result= DataResult.success();
@@ -39,6 +41,7 @@ public class LogController {
     @DeleteMapping("/deleteLogs")
     @ApiOperation(value = "删除日志接口")
     @MyLog(title = "系统管理-日志管理",action = "批量删除日志信息")
+    @RequiresPermissions("sys:log:delete")
     public DataResult deleted(@RequestBody List<String> logIds){
         DataResult result=DataResult.success();
         result.setData(logService.deleted(logIds));

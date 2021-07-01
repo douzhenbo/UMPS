@@ -111,25 +111,24 @@ public class PermissionServiceImpl implements IPermissionService {
      */
 
     private List<PermissionRespNodeVO> getTree(List<SysPermission>all,boolean type){
-        List<PermissionRespNodeVO>list=new ArrayList<>();
-        if(all.isEmpty()||all.isEmpty()){
+        List<PermissionRespNodeVO> list=new ArrayList<>();
+        if(all==null||all.isEmpty()){
             return list;
         }
-
         for(SysPermission sysPermission:all){
             if(sysPermission.getPid().equals("0")){
-                PermissionRespNodeVO permissionRespNodeVO=new PermissionRespNodeVO();
-                BeanUtils.copyProperties(sysPermission,permissionRespNodeVO);
-                permissionRespNodeVO.setTitle(sysPermission.getName());
+                PermissionRespNodeVO respNodeVO=new PermissionRespNodeVO();
+                BeanUtils.copyProperties(sysPermission,respNodeVO);
+                respNodeVO.setTitle(sysPermission.getName());
                 if(type){
-                    permissionRespNodeVO.setChildren(getChildrenExBtn(sysPermission.getId(), all));
-                }else{
-                    permissionRespNodeVO.setChildren(getChild(sysPermission.getId(),all));
+                    respNodeVO.setChildren(getChildrenExBtn(sysPermission.getId(),all));
+                }else {
+                    respNodeVO.setChildren(getChild(sysPermission.getId(),all));
                 }
-                list.add(permissionRespNodeVO);
+
+                list.add(respNodeVO);
             }
         }
-
         return list;
     }
 
@@ -141,14 +140,15 @@ public class PermissionServiceImpl implements IPermissionService {
      */
 
     private List<PermissionRespNodeVO> getChild(String id,List<SysPermission>all){
-        List<PermissionRespNodeVO>list=new ArrayList<>();
-        for(SysPermission s:all){
+        List<PermissionRespNodeVO> list=new ArrayList<>();
+        for (SysPermission s:
+                all) {
             if(s.getPid().equals(id)){
-                PermissionRespNodeVO permissionRespNodeVO=new PermissionRespNodeVO();
-                BeanUtils.copyProperties(s,permissionRespNodeVO);
-                permissionRespNodeVO.setTitle(s.getName());
-                permissionRespNodeVO.setChildren(getChildrenExBtn(s.getId(), all));
-                list.add(permissionRespNodeVO);
+                PermissionRespNodeVO respNodeVO=new PermissionRespNodeVO();
+                BeanUtils.copyProperties(s,respNodeVO);
+                respNodeVO.setTitle(s.getName());
+                respNodeVO.setChildren(getChild(s.getId(),all));
+                list.add(respNodeVO);
             }
         }
         return list;
@@ -158,14 +158,15 @@ public class PermissionServiceImpl implements IPermissionService {
      * 遍历到菜单
      */
     private List<PermissionRespNodeVO>getChildrenExBtn(String id,List<SysPermission>all){
-        List<PermissionRespNodeVO>list=new ArrayList<>();
-        for(SysPermission s:all){
+        List<PermissionRespNodeVO> list=new ArrayList<>();
+        for (SysPermission s:
+                all) {
             if(s.getPid().equals(id)&&s.getType()!=3){
-                PermissionRespNodeVO permissionRespNodeVO=new PermissionRespNodeVO();
-                BeanUtils.copyProperties(s,permissionRespNodeVO);
-                permissionRespNodeVO.setTitle(s.getName());
-                permissionRespNodeVO.setChildren(getChildrenExBtn(s.getId(), all));
-                list.add(permissionRespNodeVO);
+                PermissionRespNodeVO respNodeVO=new PermissionRespNodeVO();
+                BeanUtils.copyProperties(s,respNodeVO);
+                respNodeVO.setTitle(s.getName());
+                respNodeVO.setChildren(getChildrenExBtn(s.getId(),all));
+                list.add(respNodeVO);
             }
         }
         return list;
@@ -305,5 +306,37 @@ public class PermissionServiceImpl implements IPermissionService {
             }
         }
 
+    }
+
+
+    @Override
+    public List<String> getPermissionByUserId(String userId) {
+
+        List<SysPermission> permissions = getPermissions(userId);
+        if(permissions==null||permissions.isEmpty()){
+            return null;
+        }
+        List<String> result=new ArrayList<>();
+        for (SysPermission s:
+                permissions) {
+            if(!StringUtils.isEmpty(s.getPerms())){
+                result.add(s.getPerms());
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<SysPermission> getPermissions(String userId) {
+        List<String> roleIdsByUserId = userRoleService.getRoleIdsByUserId(userId);
+        if(roleIdsByUserId.isEmpty()){
+            return null;
+        }
+        List<String> permissionIdsByRoleIds = rolePermissionService.getPermissionIdsByRoleIds(roleIdsByUserId);
+        if (permissionIdsByRoleIds.isEmpty()){
+            return null;
+        }
+        List<SysPermission> result=sysPermissionMapper.selectByIds(permissionIdsByRoleIds);
+        return result;
     }
 }

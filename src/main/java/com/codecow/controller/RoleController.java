@@ -11,6 +11,7 @@ import com.codecow.service.IRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ public class RoleController {
     @ApiOperation(value = "获取所有角色信息")
     @PostMapping("/getAllRoles")
     @MyLog(title = "角色管理",action = "获取所有角色信息")
+    @RequiresPermissions("sys:role:list")
     public DataResult<PageVO<SysRole>> getAllRoles(@RequestBody RolePageReqVO vo){
         DataResult<PageVO<SysRole>> dataResult=DataResult.success();
         dataResult.setData(roleService.getAllRoles(vo));
@@ -43,6 +45,7 @@ public class RoleController {
     @ApiOperation(value = "新增角色")
     @PostMapping("/addRole")
     @MyLog(title = "角色管理",action = "新增角色")
+    @RequiresPermissions("sys:role:add")
     public DataResult addRole(@RequestBody @Valid AddRoleReqVO vo){
         SysRole sysRole= roleService.addRole(vo);
         return DataResult.success(sysRole);
@@ -52,6 +55,7 @@ public class RoleController {
     @ApiOperation(value = "获取角色详情接口-编辑角色时使用")
     @GetMapping("/getRoleDetailInfo/{id}")
     @MyLog(title = "角色管理",action="获取角色详情接口-编辑角色时使用")
+    @RequiresPermissions("sys:role:detail")
     public DataResult getRoleDetailInfo(@PathVariable("id")String roleId){
         SysRole sysRole=roleService.detailInfo(roleId);
         return DataResult.success(sysRole);
@@ -60,6 +64,7 @@ public class RoleController {
     @ApiOperation(value = "保存更新后的角色信息")
     @PutMapping("/updateRole")
     @MyLog(title = "角色管理",action = "保存更新后的角色信息")
+    @RequiresPermissions("sys:role:update")
     public DataResult updataRole(@RequestBody @Valid RoleUpdateReqVO vo){
         System.out.println(vo);
         roleService.updateRole(vo);
@@ -70,6 +75,7 @@ public class RoleController {
     @ApiOperation(value = "删除角色信息")
     @DeleteMapping("/deleteRole/{id}")
     @MyLog(title = "角色管理",action = "删除角色信息")
+    @RequiresPermissions("sys:role:delete")
     public DataResult deleteRole(@PathVariable("id")String id){
         roleService.deleteRole(id);
         return DataResult.success();

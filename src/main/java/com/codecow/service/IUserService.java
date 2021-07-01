@@ -50,6 +50,16 @@ public interface IUserService {
 
     SysUser detailUserInfo(String userId);
 
-    //个人用户编辑信息接口
+    /**
+     *  个人用户编辑信息接口
+     */
     void userUpdateDetailInfo(UserUpdateDetailReqVO vo,String userId);
+
+    /**
+     * 更改密码
+     * @param vo
+     * @param accessToken
+     * @param refreshToken
+     */
+    void userUpdatePwd(UserUpdatePwdReqVO vo,String accessToken,String refreshToken);
 }

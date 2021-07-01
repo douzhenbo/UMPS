@@ -49,4 +49,6 @@ public interface IRoleService {
      * @param roleId
      */
     void deleteRole(String roleId);
+
+    List<String> getNamesByUserId(String userId);
 }

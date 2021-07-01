@@ -19,10 +19,7 @@ import com.codecow.entity.SysDept;
 import com.codecow.entity.SysRole;
 import com.codecow.entity.SysUser;
 import com.codecow.entity.SysUserRole;
-import com.codecow.service.IRoleService;
-import com.codecow.service.IUserRoleService;
-import com.codecow.service.IUserService;
-import com.codecow.service.RedisService;
+import com.codecow.service.*;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -62,35 +59,41 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private IPermissionService permissionService;
+
     @Override
     public LoginRespVO login(LoginReqVO vo) {
-        SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername());
-        System.out.println(sysUser);
-        if(sysUser==null){
+        //通过用户名查询用户信息
+        //如果查询存在用户
+        //就比较它密码是否一样
+        SysUser userInfoByName = sysUserMapper.getUserByName(vo.getUsername());
+        if(userInfoByName==null){
             throw new BusinessException(BaseResponseCode.ACCOUNT_ERROR);
         }
-        if(sysUser.getStatus()==2){
+        if(userInfoByName.getStatus()==2){
             throw new BusinessException(BaseResponseCode.ACCOUNT_LOCK_TIP);
         }
-        if(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword())){
+        if(!PasswordUtils.matches(userInfoByName.getSalt(),vo.getPassword(),userInfoByName.getPassword())){
             throw new BusinessException(BaseResponseCode.ACCOUNT_PASSWORD_ERROR);
         }
-        Map<String,Object> claims=new HashMap<>();
-        claims.put(Constant.JWT_USER_NAME,sysUser.getUsername());
-        claims.put(Constant.ROLES_INFOS_KEY,getRoleByUserId(sysUser.getId()));
-        claims.put(Constant.PERMISSIONS_INFOS_KEY,getPermissionByUserId(sysUser.getId()));
-        String accessToken= JwtTokenUtil.getAccessToken(sysUser.getId(),claims);
-        System.out.println("accessToken:"+accessToken);
-        log.info("accessToken={}",accessToken);
-        Map<String,Object> refreshTokenClaims=new HashMap<>();
-        refreshTokenClaims.put(Constant.JWT_USER_NAME,sysUser.getUsername());
-        String refreshToken=null;
-        refreshToken=JwtTokenUtil.getRefreshToken(sysUser.getId(),refreshTokenClaims);
-        log.info("refreshToken={}",refreshToken);
         LoginRespVO loginRespVO=new LoginRespVO();
-        loginRespVO.setUserId(sysUser.getId());
-        loginRespVO.setRefreshToken(refreshToken);
+        loginRespVO.setPhone(userInfoByName.getPhone());
+        loginRespVO.setUsername(userInfoByName.getUsername());
+        loginRespVO.setUserId(userInfoByName.getId());
+        Map<String, Object> claims=new HashMap<>();
+        claims.put(Constant.ROLES_INFOS_KEY,getRoleByUserId(userInfoByName.getId()));
+        claims.put(Constant.PERMISSIONS_INFOS_KEY,getPermissionByUserId(userInfoByName.getId()));
+        claims.put(Constant.JWT_USER_NAME,userInfoByName.getUsername());
+        String accessToken=JwtTokenUtil.getAccessToken(userInfoByName.getId(),claims);
+        String refreshToken;
+        if(vo.getType().equals("1")){
+            refreshToken=JwtTokenUtil.getRefreshToken(userInfoByName.getId(),claims);
+        }else {
+            refreshToken=JwtTokenUtil.getRefreshAppToken(userInfoByName.getId(),claims);
+        }
         loginRespVO.setAccessToken(accessToken);
+        loginRespVO.setRefreshToken(refreshToken);
         return loginRespVO;
     }
     /**
@@ -103,26 +106,29 @@ public class UserServiceImpl implements IUserService {
      * @throws
      */
     private List<String> getRoleByUserId(String userId){
-        List<String> list=new ArrayList<>();
-        if(userId.equals("9a26f5f1-cbd2-473d-82db-1d6dcf4598f8")){
-            list.add("admin");
-        }else {
-            list.add("dev");
-        }
-        return list;
+//        List<String> list=new ArrayList<>();
+//        if(userId.equals("9a26f5f1-cbd2-473d-82db-1d6dcf4598f8")){
+//            list.add("admin");
+//        }else {
+//            list.add("dev");
+//        }
+//        return list;
+
+        return roleService.getNamesByUserId(userId);
     }
 
     private List<String> getPermissionByUserId(String userId){
-        List<String> list=new ArrayList<>();
-        if(userId.equals("9a26f5f1-cbd2-473d-82db-1d6dcf4598f8")){
-            list.add("sys:user:add");
-            list.add("sys:user:update");
-            list.add("sys:user:delete");
-            list.add("sys:user:list");
-        }else {
-            list.add("sys:user:add");
-        }
-        return list;
+//        List<String> list=new ArrayList<>();
+//        if(userId.equals("9a26f5f1-cbd2-473d-82db-1d6dcf4598f8")){
+//            list.add("sys:user:add");
+//            list.add("sys:user:update");
+//            list.add("sys:user:delete");
+//            list.add("sys:user:list");
+//        }else {
+//            list.add("sys:user:add");
+//        }
+//        return list;
+        return permissionService.getPermissionByUserId(userId);
     }
 
 
@@ -302,5 +308,70 @@ public class UserServiceImpl implements IUserService {
             throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
         }
 
+    }
+
+
+    /**
+     * 更改用户密码
+     * @param vo
+     * @param accessToken
+     * @param refreshToken
+     */
+    @Override
+    public void userUpdatePwd(UserUpdatePwdReqVO vo, String accessToken, String refreshToken) {
+
+        String userId=JwtTokenUtil.getUserId(accessToken);
+
+        //校验旧密码
+        SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
+
+        if(sysUser==null){
+            throw new BusinessException(BaseResponseCode.TOKEN_ERROR);
+        }
+
+
+        if(!PasswordUtils.matches(sysUser.getSalt(),vo.getOldPwd(),sysUser.getPassword())){
+            throw new BusinessException(BaseResponseCode.OLD_PASSWORD_ERROR);
+        }
+
+
+        //保存新密码
+        sysUser.setUpdateTime(new Date());
+        sysUser.setUpdateId(userId);
+        sysUser.setPassword(PasswordUtils.encode(vo.getNewPwd(),sysUser.getSalt()));
+        int i = sysUserMapper.updateByPrimaryKeySelective(sysUser);
+        if(i!=1){
+            throw new BusinessException(BaseResponseCode.OPERATION_ERROR);
+        }
+
+        /**
+         * 把token 加入黑名单 禁止再登录
+         */
+
+        System.out.println("1:没有发生异常");
+
+
+        redisService.set(Constant.JWT_ACCESS_TOKEN_BLACKLIST+accessToken,
+                userId,
+                JwtTokenUtil.getRemainingTime(accessToken),
+                TimeUnit.MILLISECONDS);
+        /**
+         * 把 refreshToken 加入黑名单 禁止再拿来刷新token
+         */
+
+
+        System.out.println("2：没有发生异常");
+
+
+        System.out.println(refreshToken);
+
+
+        redisService.set(Constant.JWT_REFRESH_TOKEN_BLACKLIST+refreshToken,
+                userId,
+                JwtTokenUtil.getRemainingTime(refreshToken),
+                TimeUnit.MILLISECONDS);
+
+
+        System.out.println("3：没有发生异常");
     }
 }

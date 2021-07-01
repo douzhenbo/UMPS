@@ -25,7 +25,6 @@ public interface SysRoleMapper {
      */
     List<SysRole> selectAll(RolePageReqVO vo);
 
-
-
+    List<String> selectNamesByIds(List<String> ids);
 
 }

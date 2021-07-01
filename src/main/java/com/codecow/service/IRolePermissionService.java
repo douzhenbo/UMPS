@@ -23,4 +23,7 @@ public interface IRolePermissionService {
      * @return
      */
     int removeByRoleId(String roleId);
+
+
+    List<String> getPermissionIdsByRoleIds(List<String> roleIds);
 }

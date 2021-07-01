@@ -32,4 +32,6 @@ public interface SysRolePermissionMapper {
 
     int removeByRoleId(String roleId);
 
+    List<String> getPermissionIdsByRoleIds(List<String> roleIds);
+
 }

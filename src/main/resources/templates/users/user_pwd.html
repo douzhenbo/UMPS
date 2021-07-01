@@ -53,7 +53,7 @@
             }
         })
         form.on('submit(baseSubmit)',function (data) {
-            CoreUtil.sendAjax("/api/user/pwd",JSON.stringify(data.field),function (res) {
+            CoreUtil.sendAjax("/user/updatePassword",JSON.stringify(data.field),function (res) {
                 layer.msg("密码已经变更请重新登录");
                 top.window.location.href="/index/login";
             },"PUT",true);

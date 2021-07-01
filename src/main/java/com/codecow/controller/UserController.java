@@ -51,6 +51,7 @@ public class UserController {
     @PostMapping("/user/getUserList")
     @ApiOperation(value = "获取用户列表")
     @MyLog(title = "用户管理",action = "获取用户列表")
+    @RequiresPermissions("sys:user:list")
     public DataResult getUserList(@RequestBody UserPageReqVO vo){
         PageVO<SysUser> sysUserPageInfo=userService.pageInfo(vo);
         return DataResult.success(sysUserPageInfo);
@@ -59,6 +60,7 @@ public class UserController {
     @PostMapping("/user/addUser")
     @ApiOperation(value = "添加用户接口")
     @MyLog(title = "用户管理",action = "添加用户")
+    @RequiresPermissions("sys:user:add")
     public DataResult addUser(@RequestBody @Valid AddUserReqVO vo){
         userService.addUser(vo);
         return DataResult.success();
@@ -77,6 +79,7 @@ public class UserController {
     @PutMapping("/user/giveRoles")
     @ApiOperation(value = "赋予用户角色")
     @MyLog(title = "用户管理",action = "赋予用户角色")
+    @RequiresPermissions("sys:user:role:update")
     public DataResult giveRoles(@RequestBody @Valid UserOwnRoleReqVO vo){
        userService.setUserOwnRole(vo);
        return DataResult.success();
@@ -94,6 +97,7 @@ public class UserController {
     @ApiOperation(value = "列表更新用户信息接口")
     @PutMapping("/user/updateUser")
     @MyLog(title = "用户管理",action = "列表更新用户信息")
+    @RequiresPermissions("sys:user:update")
     public DataResult updateUserInfo(@RequestBody @Valid UserUpdateReqVO vo,HttpServletRequest request){
         userService.updateUserInfo(vo, JwtTokenUtil.getUserId(request.getHeader(Constant.ACCESS_TOKEN)));
         DataResult result=DataResult.success();
@@ -103,6 +107,7 @@ public class UserController {
     @ApiOperation(value = "删除&批量删除用户接口")
     @DeleteMapping ("/user/deleteUsers")
     @MyLog(title = "用户管理",action = "删除&批量删除用户")
+    @RequiresPermissions("sys:user:delete")
     public DataResult deleteUsers(@RequestBody @ApiParam("用户id集合")List<String>list,HttpServletRequest request){
         userService.deleteUsers(list,JwtTokenUtil.getUserId(request.getHeader(Constant.ACCESS_TOKEN)));
         return DataResult.success();
@@ -146,5 +151,20 @@ public class UserController {
         return result;
     }
 
+
+    @PutMapping("/user/updatePassword")
+    @ApiOperation(value = "修改密码接口")
+    @MyLog(title = "用户管理",action = "更新密码")
+    public DataResult updatePwd(@RequestBody @Valid UserUpdatePwdReqVO vo,HttpServletRequest request){
+        String accessToken=request.getHeader(Constant.ACCESS_TOKEN);
+        String refreshgToken=request.getHeader(Constant.JWT_REFRESH_KEY);
+        try {
+            userService.userUpdatePwd(vo,accessToken,refreshgToken);
+        }catch (Exception e){
+            log.info("e:{}",e);
+        }
+        DataResult result=DataResult.success();
+        return result;
+    }
 
 }
